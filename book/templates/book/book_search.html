@@ -1,0 +1,77 @@
+{% extends "head.html" %}
+
+{% block content %}
+
+<!--Main-->
+
+<section id="main">
+
+	<section class="box special features">
+	<div class="features">
+	<section>
+	<form method="get" action="{% url 'book:book-search' %}">
+	
+	<!--{% csrf_token %}
+	<input type="text" name="search_query" placeholder="Search Books Here" maxlength="100" required id="search_query" />
+		<input type="text" name="search_query" maxlength="100" required id="id_search_query" placeholder="Search Books Here" />
+	-->
+	<input type="text" name="q" maxlength="100" required id="id_q" placeholder="Search Books Here" />
+	</form>
+	<header>
+	<h2>{{ genre_details.name | capfirst }}</h2>
+	<p>{{ genre_details.description }}</p>
+	</header>
+	</section>
+	</div>
+	</section>
+
+<br>1-{{ search_result }}
+<br>2-{{ form.q.clean_data }}
+<br>3-{{ get_form }}
+<br>4-{{ search_icontain }}
+
+{% if tag_details %}
+	<section class="box special">
+	<h2>Filter items by Tag: {{ tag_details.name | capfirst }}</h2>
+	</section>
+{% endif %}
+
+
+<section class="container">
+
+{% if search_result %}
+<section class="box">
+<div class="row">
+{% for book in search_result %}
+	<div class="4u 6u(narrower)">
+	<span class="image fit">
+		{% if book.image %}
+		<a href="{% url 'book:book-detail' book.genre.code book.code %}">
+		<img src="{{ book.image.url }}"></a>
+		{% endif %}
+	</span>
+	<header>
+		<a href="{% url 'book:book-detail' book.genre.code book.code %}">
+		<h2>{{ book.title }}</h2>
+		</a>
+		<!--<p>{{ volume.get_availability }}</p>-->
+	</header>
+	</div>
+{% endfor %}
+</div>
+</section>
+
+{% else %}
+
+{{ search_result }}
+{{ form_result }}
+
+No Book Found
+
+{% endif %}
+
+
+
+
+</section>
+{% endblock %}

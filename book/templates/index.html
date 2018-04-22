@@ -1,0 +1,68 @@
+{% extends "head.html" %}
+
+{% block content %}
+
+<!-- Banner -->
+<section id="banner">
+	<h1>moe.ph</h1>
+	<p>Cute and Depressed</p>
+</section>
+
+<section id="main">
+	<section class="box special">
+	<header class="major">
+	<h2>Not so Mainstream Manga for Everyone</h2>
+	<p>The secret Yuri shop of convention events. We are also selling normal manga and yaoi stuffs, so take your time and take a look.
+	</header>
+	</section>
+
+
+{% if featured_book %}
+	<section class="container">
+	<section class="box">
+	<div class="row">
+	{% for book in featured_book %}
+		<div class="3u 6u(narrower)">
+		{% if book.get_first_volume_image %}
+		<span class="image fit"><a href="{% url 'book:book-detail' book.genre.name book.code %}"><img src="{{ book.get_first_volume_image.url }}" alt="{{ book.get_first_volume_image.name }}" /></a></span>
+		{% endif %}
+		<header>
+		<a href="{% url 'book:book-detail' book.genre.name book.code %}">
+		<h4>{{ book.title }}</h4>
+		</a>
+		<p>{{ book.author.name }}</p>
+		</header>
+		</div>
+	{% endfor %}
+	</div>
+	</section>
+	</section>
+{% endif %}
+
+{% if genre_list %}
+<section class="container">
+<section class="special">
+<header><h2>Browse Item by Genre</h2></header>
+<div class="row">
+	{% for genre in genre_list %}
+		<div class="6u 12u(narrower)">
+		<section class="box">
+			{% if genre.image %}
+			<span class="image featured"><img src="{{ genre.image.url }}" alt="{{ genre.image.name }}" /></span>
+			{% endif %}
+		<h3>{{ genre.name | capfirst }}</h3>
+		<ul class="actions">
+		<li><a href="{% url 'book:book' genre.code %}" class="button alt">Browse {{ genre.name | capfirst }}</a></li>
+		</ul>
+		</section>
+		</div>
+	{% endfor %}
+
+</div>			
+</section>
+</section>
+{% endif %}
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "head.html" %}
+
+{% block content %}
+
+<!--Main-->
+
+<section id="main">
+
+{% if genre_details %}
+	<section class="box special features">
+	<div class="features">
+	<section>
+	<span class="image featured">
+		{% if genre_details.image %}
+		<img src="{{ genre_details.image.url }}" alt="{{ genre_details.image.name }}" />
+		{% endif %}
+	</span>
+	<header>
+	<h2>{{ genre_details.name | capfirst }}</h2>
+	<p>{{ genre_details.description }}</p>
+	</header>
+	</section>
+	</div>
+	</section>
+{% endif %}
+
+{% if tag_details %}
+	<section class="box special">
+	<h2>Filter items by Tag: {{ tag_details.name | capfirst }}</h2>
+	</section>
+{% endif %}
+
+
+<section class="container">
+
+{% if book_list %}
+<section class="box">
+<div class="row">
+{% for book in book_list %}
+	<div class="4u 6u(narrower)">
+	<span class="image fit">
+		{% if book.image %}
+		<img src="{{ book.image.url }}">
+		{% endif %}
+	</span>
+	<header>
+		<a href="{% url 'book-detail' book.genre.name book.book_code %}">
+		<h2>{{ book.title }}</h2>
+		</a>
+		<!--<p>{{ volume.get_availability }}</p>-->
+	</header>
+	</div>
+{% endfor %}
+</div>
+</section>
+{% endif %}
+
+
+</section>
+{% endblock %}

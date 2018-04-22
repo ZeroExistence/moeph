@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<!--
+	Alpha by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		{% load static %}
+		<title>moe.ph {% if book %}- {{ book.title }}{% endif %}
+		</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="/static/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="/static/css/main.css" />
+		<link rel="icon" type="image/png" href="{% static 'favicon.png'%}" />
+
+		<!--[if lte IE 8]><link rel="stylesheet" href="/static/css/ie8.css" /><![endif]-->
+	</head>
+	<body>
+		<!-- <div id="page-wrapper">-->
+
+			<!-- Header -->
+				<header id="header">
+					<h1><a href="{% url 'index' %}">moe.ph</a></h1>
+					<nav id="nav">
+						<ul>
+							<li><a href="{% url 'index' %}">Home</a></li>
+							<li>
+								<a href="#" class="icon fa-angle-down">Navigation</a>
+								<ul>
+									<li><a href="{% url 'index' %}">Home</a></li>
+									<li><a href="{% url 'book:book' 'manga' %}">Manga</a></li>
+									<li><a href="{% url 'book:book' 'yuri' %}">Yuri</a></li>
+									<li><a href="{% url 'book:book' 'yaoi' %}">Yaoi</a></li>
+									<li><a href="{% url 'page:page' 'about-us' %}">About Us</a></li>
+									<li><a href="{% url 'book:book-all' %}">Browse All</a></li>
+									<li><a href="{% url 'book:book-search' %}">Search</a></li>
+								</ul>
+							</li>
+							<li><form method="get" action="{% url 'book:book-search' %}">
+								<input type="text" name="q" maxlength="100" required id="id_q" placeholder="Search Books Here" />
+							</form></li>
+						</ul>
+					</nav>
+				</header>
+
+
+				{% block content %} {% endblock %}
+
+			<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+						<li><a href="https://twitter.com/eros_s2_ph" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="https://facebook.com/be.moe.ph/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+						<li><a href="https://github.com/ZeroExistence/" class="icon fa-github"><span class="label">Github</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; moe.ph. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li><li>Framework: <a href="https://www.djangoproject.com/">Django</a></li>
+					</ul>
+				</footer>
+
+		<!-- </div>-->
+
+		<!-- Scripts -->
+			<script src="/static/js/jquery.min.js"></script>
+			<script src="/static/js/jquery.dropotron.min.js"></script>
+			<script src="/static/js/jquery.scrollgress.min.js"></script>
+			<script src="/static/js/skel.min.js"></script>
+			<script src="/static/js/util.js"></script>
+			<!--[if lte IE 8]><script src="/static/js/ie/respond.min.js"></script><![endif]-->
+			<script src="/static/js/main.js"></script>
+
+	</body>
+</html>

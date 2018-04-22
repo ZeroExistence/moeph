@@ -1,0 +1,118 @@
+from django.shortcuts import render, get_object_or_404, redirect, get_list_or_404
+from django.contrib.sites.shortcuts import get_current_site
+from django.http import HttpResponse, Http404
+from django.template import loader
+from django.views import generic
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+# Create your views here.
+from .models import Book, Genre, Author, Volume, Tag
+from .forms import SearchForm
+
+
+def index(request):
+	num_books = Book.objects.all().count()
+	num_volume = Volume.objects.all().count()
+
+	return render(
+		request,
+		'index.html',
+		context={'num_books':num_books, 'num_volume':num_volume})
+
+def book_all(request):
+	book_list = Book.objects.all().order_by('title')
+	paginator = Paginator(book_list, 3)
+	page = request.GET.get('page')
+	context = {'book_list': paginator.get_page(page),
+				'all_details': True}
+
+	return render(request, 'book/book_list.html', context)
+
+
+class BookListView(generic.ListView):
+	model = Book
+
+	def get_queryset(self):
+		try:
+			current_site = get_current_site(self.request)
+			return Book.objects.filter(genre__code__exact=self.kwargs['slug'])
+		except Book.DoesNotExist:
+			raise Http404()
+
+	def get_context_data(self, **kwargs):
+		context = super(BookListView, self).get_context_data(**kwargs)
+		context.update({
+			'genre_details': get_object_or_404(Genre, code=self.kwargs['slug'])
+			})
+		return context
+
+	#paginate_by = 18
+
+
+class BookDetailView(generic.DetailView):
+	model = Book
+
+	def get_object(self):
+ 		try:
+ 			return Book.objects.get(genre__code=self.kwargs['genre'], code=self.kwargs['book'])
+ 		except Book.DoesNotExist:
+ 			raise Http404()
+
+
+class BookTagView(generic.ListView):
+	model = Book
+
+	def get_queryset(self):
+		#return get_list_or_404(Book, tag__code__exact=self.kwargs['slug'])
+ 		try:
+ 			return Book.objects.filter(tag__code__exact=self.kwargs['slug'])
+ 		except Book.DoesNotExist:
+ 			raise Http404()
+
+	def get_context_data(self, **kwargs):
+		context = super(BookTagView, self).get_context_data(**kwargs)
+		context.update({
+			'tag_details': get_object_or_404(Tag, code=self.kwargs['slug']),
+			})
+		return context
+
+class BookAuthorView(generic.ListView):
+	model = Book
+
+	def get_queryset(self):
+		#return get_list_or_404(Book, tag__code__exact=self.kwargs['slug'])
+ 		try:
+ 			return Book.objects.filter(author__code__exact=self.kwargs['slug'])
+ 		except Book.DoesNotExist:
+ 			raise Http404()
+
+	def get_context_data(self, **kwargs):
+		context = super(BookAuthorView, self).get_context_data(**kwargs)
+		context.update({
+			'author_details': get_object_or_404(Author, code=self.kwargs['slug']),
+			})
+		return context
+
+
+def book_search(request):
+	if request.method == 'GET':
+		form = SearchForm(request.GET)
+
+		if form.is_valid():
+			#search_result = Book.objects.filter(title__icontains=form.search_query_validated)
+			search_result = Book.objects.all()
+			get_form = form.query
+			search_icontain = Book.objects.filter(title__icontains=get_form)
+			context = {'search_result': search_result, 'get_form': get_form, 'search_icontain': search_icontain }
+
+			return render(request, 'book/book_search.html', context)
+
+		#form = SearchForm()
+		#return redirect('index')
+		
+
+	#return render(request, 'index.html', {'form': form})
+	#return redirect('index')
+	#form = SearchForm()
+
+	return render(request, 'book/book_search.html')

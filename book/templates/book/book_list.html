@@ -1,0 +1,72 @@
+{% extends "head.html" %}
+
+{% block content %}
+
+<!--Main-->
+
+<section id="main">
+
+{% if genre_details %}
+	<section class="box special features">
+	<div class="features">
+	<span class="image featured">
+		{% if genre_details.image %}
+		<img src="{{ genre_details.image.url }}" alt="{{ genre_details.image.name }}" />
+		{% endif %}
+	</span>
+	<header>
+	<h2>{{ genre_details.name | capfirst }}</h2>
+	<p>{{ genre_details.description }}</p>
+	</header>
+	</div>
+	</section>
+{% endif %}
+
+
+{% if tag_details %}
+	<section class="box special">
+	<h2>Filter items by Tag: {{ tag_details.name | capfirst }}</h2>
+	</section>
+{% endif %}
+
+{% if all_details %}
+	<section class="box special">
+	<h2>Browse All Books</h2>
+	</section>
+{% endif %}
+
+{% if author_details %}
+	<section class="box special">
+	<h2>Filter items by Author: {{ author_details.name }}</h2>
+	</section>
+{% endif %}
+
+
+{% if book_list %}
+	<section class="container">
+	<section class="box">
+	<div class="row">
+	{% for book in book_list %}
+		<div class="4u 6u(narrower)">
+		<span class="image fit">
+			{% if book.get_first_volume_image %}
+			<a href="{% url 'book:book-detail' book.genre.name book.code %}">
+			<img src="{{ book.get_first_volume_image.url }}" alt="{{ book.get_first_volume_image.name }}">
+			</a>
+			{% endif %}
+		</span>
+		<header>
+			<a href="{% url 'book:book-detail' book.genre.name book.code %}">
+			<h2>{{ book.title }}</h2>
+			</a>
+			<p>{{ book.author.name }}</p>
+		</header>
+		</div>
+	{% endfor %}
+	</div>
+	</section>
+{% endif %}
+
+
+</section>
+{% endblock %}

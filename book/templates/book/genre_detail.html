@@ -1,0 +1,28 @@
+{% extends "head.html" %}
+
+{% block content %}
+
+<!--Main-->
+<section id="main" class="container">
+
+
+{% if genre %}
+	<section class="box special features">
+	<div class="features">
+	<section>
+	<span class="image featured">
+		{% if genre.image %}
+		<img src="{{ genre.image.url }}" alt="{{ genre.image.name }}" />
+		{% endif %}
+	</span>
+	<header>
+	<h2>{{ genre.title }}</h2>
+	<p>{{ genre.summary }}</p>
+	</header>
+	</section>
+	</div>
+	</section>
+{% endif %}
+
+</section>
+{% endblock %}
