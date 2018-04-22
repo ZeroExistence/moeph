@@ -99,20 +99,9 @@ def book_search(request):
 		form = SearchForm(request.GET)
 
 		if form.is_valid():
-			#search_result = Book.objects.filter(title__icontains=form.search_query_validated)
-			search_result = Book.objects.all()
-			get_form = form.query
-			search_icontain = Book.objects.filter(title__icontains=get_form)
-			context = {'search_result': search_result, 'get_form': get_form, 'search_icontain': search_icontain }
-
+			get_form = form.cleaned_data['q']
+			search_icontain = Book.objects.all().filter(title__icontains=get_form)
+			context = {'search_result': search_icontain, 'get_form': get_form}
 			return render(request, 'book/book_search.html', context)
-
-		#form = SearchForm()
-		#return redirect('index')
-		
-
-	#return render(request, 'index.html', {'form': form})
-	#return redirect('index')
-	#form = SearchForm()
 
 	return render(request, 'book/book_search.html')
