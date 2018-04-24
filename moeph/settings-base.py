@@ -25,7 +25,7 @@ SECRET_KEY = 'Change_m3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['linode.moe.ph', 'hlinode.moe.ph']
+ALLOWED_HOSTS = ['']
 
 # Application definition
 
@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
     'django.contrib.sites',
 ]
 
@@ -124,15 +123,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_URL = 'https://cdnlinode.moe.ph/static/'
+STATIC_URL = 'https://cdn.moe.ph/static/'
 STATIC_ROOT = 'static/'
 
 ## Config Settings
 
 APPEND_SLASH = False
 
-MEDIA_URL = 'https://cdnlinode.moe.ph/'
-MEDIA_ROOT = 'media/'
+MEDIA_URL = 'https://cdn.moe.ph/media/'
+MEDIA_ROOT = '/'
 
 ## Site ID
-SITE_ID = 3
+SITE_ID = 1
