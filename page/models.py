@@ -4,7 +4,7 @@ from django.db import models
 from django.conf import settings
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.utils.six import StringIO, BytesIO
-from lib import functions
+from local import functions
 
 # Create your models here.
 
