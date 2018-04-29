@@ -2,7 +2,7 @@ from django.conf import settings
 from flatpages.models import FlatPage
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import Http404, HttpResponse, HttpResponsePermanentRedirect
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, get_list_or_404, redirect, render
 from django.template import loader
 from django.utils.safestring import mark_safe
 from django.views.decorators.csrf import csrf_protect
@@ -17,6 +17,9 @@ DEFAULT_TEMPLATE = 'flatpages/default.html'
 # or a redirect is required for authentication, the 404 needs to be returned
 # without any CSRF checks. Therefore, we only
 # CSRF protect the internal implementation.
+
+from book.models import Book, Genre
+from django.views import generic
 
 
 def flatpage(request, url):

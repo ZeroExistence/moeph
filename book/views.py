@@ -4,6 +4,7 @@ from django.http import HttpResponse, Http404
 from django.template import loader
 from django.views import generic
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.urls import reverse_lazy
 
 # Create your views here.
 from .models import Book, Genre, Author, Volume, Tag
@@ -105,3 +106,7 @@ def book_search(request):
 			return render(request, 'book/book_search.html', context)
 
 	return render(request, 'book/book_search.html')
+
+def redirectshort(request, pk):
+	book = get_object_or_404(Book, pk=pk)
+	return redirect('book:book-detail', genre=book.genre, book=book.code)
