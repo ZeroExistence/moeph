@@ -10,6 +10,17 @@ ROOT_URLCONF = 'moeph.urls.moephadmin'
 
 WSGI_APPLICATION = 'moeph.wsgi.moephadmin.application'
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/2.0/howto/static-files/
+
+STATIC_URL = '/static/'
+STATIC_ROOT = 'static/'
+
+## Config Settings
+
+MEDIA_URL = '/'
+MEDIA_ROOT = 'media/'
+
 INSTALLED_APPS += [
 	'django.contrib.staticfiles']
 
