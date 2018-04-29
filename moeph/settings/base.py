@@ -67,24 +67,6 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'moeph.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'moeph',
-        'USER': 'moeph',
-        'PASSWORD': 'Chang3m3',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
-}
-
-
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 
@@ -130,6 +112,3 @@ APPEND_SLASH = False
 
 MEDIA_URL = '/'
 MEDIA_ROOT = 'media/'
-
-## Site ID
-SITE_ID = 1
