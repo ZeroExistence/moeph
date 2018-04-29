@@ -14,10 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import include, path
-from page import views as page_view
+from flatpages import views
 
 urlpatterns = [
-    path('', page_view.index, name='index'),
+    path('', views.index, name='index'),
     path('b/', include('book.urls')),
     path('p/', include('flatpages.urls')),
 ]
