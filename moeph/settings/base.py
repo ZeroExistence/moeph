@@ -48,6 +48,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'flatpages.middleware.FlatpageFallbackMiddleware',
+    'django.contrib.sites.middleware.CurrentSiteMiddleware',
 ]
 
 TEMPLATES = [
@@ -66,24 +67,6 @@ TEMPLATES = [
         },
     },
 ]
-
-WSGI_APPLICATION = 'moeph.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'moeph',
-        'USER': 'moeph',
-        'PASSWORD': 'Chang3m3',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -117,19 +100,4 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.0/howto/static-files/
-
-STATIC_URL = '/static/'
-STATIC_ROOT = 'static/'
-
-## Config Settings
-
 APPEND_SLASH = False
-
-MEDIA_URL = '/'
-MEDIA_ROOT = 'media/'
-
-## Site ID
-SITE_ID = 1
