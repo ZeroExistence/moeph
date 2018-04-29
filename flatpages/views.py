@@ -7,6 +7,7 @@ from django.template import loader
 from django.utils.safestring import mark_safe
 from django.views.decorators.csrf import csrf_protect
 
+
 DEFAULT_TEMPLATE = 'flatpages/default.html'
 
 # This view is called from FlatpageFallbackMiddleware.process_response
@@ -75,7 +76,7 @@ def render_flatpage(request, f):
 
 
 def index(request):
-    current_site = get_current_site(request)
+    current_site = request.site
     try:
         featured_book = get_list_or_404(Book, site=current_site.id, featured=True)
         genre_list = get_list_or_404(Genre, site=current_site.id)

@@ -48,6 +48,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'flatpages.middleware.FlatpageFallbackMiddleware',
+    'django.contrib.sites.middleware.CurrentSiteMiddleware',
 ]
 
 TEMPLATES = [

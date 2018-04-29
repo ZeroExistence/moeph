@@ -21,7 +21,7 @@ def index(request):
 		context={'num_books':num_books, 'num_volume':num_volume})
 
 def book_all(request):
-	book_list = Book.objects.all().order_by('title')
+	book_list = Book.on_site.all().order_by('title')
 	paginator = Paginator(book_list, 3)
 	page = request.GET.get('page')
 	context = {'book_list': paginator.get_page(page),
@@ -35,8 +35,7 @@ class BookListView(generic.ListView):
 
 	def get_queryset(self):
 		try:
-			current_site = get_current_site(self.request)
-			return Book.objects.filter(genre__code__exact=self.kwargs['slug'])
+			return Book.on_site.filter(genre__code__exact=self.kwargs['slug'])
 		except Book.DoesNotExist:
 			raise Http404()
 
@@ -55,7 +54,7 @@ class BookDetailView(generic.DetailView):
 
 	def get_object(self):
  		try:
- 			return Book.objects.get(genre__code=self.kwargs['genre'], code=self.kwargs['book'])
+ 			return Book.on_site.get(genre__code=self.kwargs['genre'], code=self.kwargs['book'])
  		except Book.DoesNotExist:
  			raise Http404()
 
@@ -64,9 +63,8 @@ class BookTagView(generic.ListView):
 	model = Book
 
 	def get_queryset(self):
-		#return get_list_or_404(Book, tag__code__exact=self.kwargs['slug'])
  		try:
- 			return Book.objects.filter(tag__code__exact=self.kwargs['slug'])
+ 			return Book.on_site.filter(tag__code__exact=self.kwargs['slug'])
  		except Book.DoesNotExist:
  			raise Http404()
 
@@ -77,13 +75,14 @@ class BookTagView(generic.ListView):
 			})
 		return context
 
+
 class BookAuthorView(generic.ListView):
 	model = Book
 
 	def get_queryset(self):
 		#return get_list_or_404(Book, tag__code__exact=self.kwargs['slug'])
  		try:
- 			return Book.objects.filter(author__code__exact=self.kwargs['slug'])
+ 			return Book.on_site.filter(author__code__exact=self.kwargs['slug'])
  		except Book.DoesNotExist:
  			raise Http404()
 
@@ -101,11 +100,12 @@ def book_search(request):
 
 		if form.is_valid():
 			get_form = form.cleaned_data['q']
-			search_icontain = Book.objects.all().filter(title__icontains=get_form)
+			search_icontain = Book.on_site.all().filter(title__icontains=get_form)
 			context = {'search_result': search_icontain, 'get_form': get_form}
 			return render(request, 'book/book_search.html', context)
 
 	return render(request, 'book/book_search.html')
+
 
 def redirectshort(request, pk):
 	book = get_object_or_404(Book, pk=pk)
