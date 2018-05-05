@@ -33,7 +33,7 @@
 	<div class="4u 12u(narrower)">
 	<p>Tags: 
 		{% for tag in book.get_tags %}
-			<a href="{% url 'book:book-tag' tag.name %}">{{ tag.name }}</a>, 
+			<a href="{% url 'book:book-tag' tag.code %}">{{ tag.name }}</a>, 
 		{% endfor %}
 	</p>
 	</div>
