@@ -19,7 +19,7 @@ DEFAULT_TEMPLATE = 'flatpages/default.html'
 # without any CSRF checks. Therefore, we only
 # CSRF protect the internal implementation.
 
-from book.models import Book, Genre
+from book.models import Book, Genre, Volume
 from django.views import generic
 
 
@@ -78,9 +78,9 @@ def render_flatpage(request, f):
 def index(request):
     current_site = request.site
     try:
-        featured_book = get_list_or_404(Book, site=current_site.id, featured=True)
-        genre_list = get_list_or_404(Genre, site=current_site.id)
-    except Book.DoesNotExist:
+        new_arrival = Volume.objects.filter(title__site=current_site.id).order_by('updated_at').reverse()[:6]
+        featured_book = Book.on_site.filter(featured=True)
+        genre_list = Genre.on_site.all()
+    except:
             raise Http404()
-    #return render(request, 'page/page_detail.html', {'page': index_page})
-    return render(request, 'index.html', {'featured_book': featured_book, 'genre_list': genre_list})
+    return render(request, 'index.html', {'new_arrival': new_arrival, 'featured_book': featured_book, 'genre_list': genre_list})

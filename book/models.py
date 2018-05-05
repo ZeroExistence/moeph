@@ -100,13 +100,18 @@ class Volume(models.Model):
 	price = models.PositiveSmallIntegerField()
 	inventory = models.PositiveSmallIntegerField()
 	image = models.ImageField(upload_to=volume_directory_location, help_text="Images to be uploaded here will be resized to 400x600" , blank=True)
+	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
 
 	class Meta:
 		ordering = ["title", "volume"]
+		get_latest_by = 'updated_at'
 
 
 	def __str__(self):
 		if self.alt_title == "":
+			return '{0} {1}'.format(self.title, self.volume)
+		if not self.alt_title:
 			return '{0} {1}'.format(self.title, self.volume)
 		else:
 			return '{0} {1} - {2}'.format(self.title, self.volume, self.alt_title)
@@ -123,6 +128,14 @@ class Volume(models.Model):
 		if self.image:
 			self.image = functions.resize(self.image, 400, 600)
 		super(Volume, self).save(*args, **kwargs)
+
+	def get_title(self):
+		if self.alt_title == "":
+			return '{0} {1}'.format(self.title, self.volume)
+		if not self.alt_title:
+			return '{0} {1}'.format(self.title, self.volume)
+		else:
+			return self.alt_title
 
 
 class Tag(models.Model):

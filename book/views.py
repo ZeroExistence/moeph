@@ -11,15 +11,6 @@ from .models import Book, Genre, Author, Volume, Tag
 from .forms import SearchForm
 
 
-def index(request):
-	num_books = Book.objects.all().count()
-	num_volume = Volume.objects.all().count()
-
-	return render(
-		request,
-		'index.html',
-		context={'num_books':num_books, 'num_volume':num_volume})
-
 def book_all(request):
 	book_list = Book.on_site.all().order_by('title')
 	paginator = Paginator(book_list, 3)
@@ -110,3 +101,7 @@ def book_search(request):
 def redirectshort(request, pk):
 	book = get_object_or_404(Book, pk=pk)
 	return redirect('book:book-detail', genre=book.genre, book=book.code)
+
+
+def redirect_to_index(request):
+	return redirect('index')

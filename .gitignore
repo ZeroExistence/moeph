@@ -1,5 +1,5 @@
 ## Custom ingnore
-*/migrations/000*.py
+*/migrations/00*.py
 media/
 static/
 
