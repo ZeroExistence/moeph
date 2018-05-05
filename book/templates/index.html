@@ -16,13 +16,32 @@
 	</header>
 	</section>
 
+{% if new_arrival %}
+	<section class="box special">
+	<header><h2>New Arrivals</h2></header>
+	<div class="row">
+	{% for volume in new_arrival %}
+		<div class="2u 4u(narrower)">
+		{% if volume.image %}
+		<span class="image fit"><a href="{% url 'book:book-detail' volume.title.genre volume.title.code %}"><img src="{{ volume.image.url }}" alt="{{ volume.image.name }}" /></a></span>
+		{% endif %}
+		<header>
+		<a href="{% url 'book:book-detail' volume.title.genre volume.title.code %}">
+		<h4>{{ volume.get_title }}</h4>
+		</a>
+		</header>
+		</div>
+	{% endfor %}
+	</div>
+	</section>
+{% endif %}
 
 {% if featured_book %}
-	<section class="container">
-	<section class="box">
+	<section class="box special">
+	<header><h2>Featured Books</h2></header>
 	<div class="row">
 	{% for book in featured_book %}
-		<div class="3u 6u(narrower)">
+		<div class="2u 4u(narrower)">
 		{% if book.get_first_volume_image %}
 		<span class="image fit"><a href="{% url 'book:book-detail' book.genre.name book.code %}"><img src="{{ book.get_first_volume_image.url }}" alt="{{ book.get_first_volume_image.name }}" /></a></span>
 		{% endif %}
@@ -36,7 +55,6 @@
 	{% endfor %}
 	</div>
 	</section>
-	</section>
 {% endif %}
 
 {% if genre_list %}
@@ -48,7 +66,7 @@
 		<div class="6u 12u(narrower)">
 		<section class="box">
 			{% if genre.image %}
-			<span class="image featured"><img src="{{ genre.image.url }}" alt="{{ genre.image.name }}" /></span>
+			<a href="{% url 'book:book' genre.code %}"><span class="image featured"><img src="{{ genre.image.url }}" alt="{{ genre.image.name }}" /></span></a>
 			{% endif %}
 		<h3>{{ genre.name | capfirst }}</h3>
 		<ul class="actions">

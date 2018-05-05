@@ -43,11 +43,10 @@
 
 
 {% if book_list %}
-	<section class="container">
 	<section class="box">
 	<div class="row">
 	{% for book in book_list %}
-		<div class="4u 6u(narrower)">
+		<div class="2u 4u(narrower)">
 		<span class="image fit">
 			{% if book.get_first_volume_image %}
 			<a href="{% url 'book:book-detail' book.genre.name book.code %}">
@@ -68,5 +67,4 @@
 {% endif %}
 
 
-</section>
 {% endblock %}
