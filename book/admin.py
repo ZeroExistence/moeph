@@ -4,14 +4,13 @@ from django.contrib import admin
 
 from .models import Genre, Book, Author, Volume, Tag
 
-admin.site.register(Genre)
 admin.site.register(Author)
 admin.site.register(Tag)
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
-	list_display = ('title','genre', 'is_featured', 'volume_count', 'site')
-	#fields = [('title','author'),'summary',('genre','featured'),'tag']
+	list_display = ('title','genre', 'volume_count', 'site')
+	list_filter = ('genre', 'featured')
 
 	fieldsets = (
 		('Book Details', {
@@ -25,4 +24,8 @@ class BookAdmin(admin.ModelAdmin):
 @admin.register(Volume)
 class VolumeAdmin(admin.ModelAdmin):
 	list_display = ('title','volume', 'inventory', 'price')
-	list_filter = ('title', 'inventory')
+	list_filter = ('title__genre', 'inventory')
+
+@admin.register(Genre)
+class GenreAdmin(admin.ModelAdmin):
+	list_display = ('name', 'site')
