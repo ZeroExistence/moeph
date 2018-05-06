@@ -19,7 +19,7 @@
 {% if new_arrival %}
 	<section class="box special">
 	<header><h2>New Arrivals</h2></header>
-	<div class="row">
+	<div class="row uniform">
 	{% for volume in new_arrival %}
 		<div class="2u 4u(narrower)">
 		{% if volume.image %}
@@ -39,7 +39,7 @@
 {% if featured_book %}
 	<section class="box special">
 	<header><h2>Featured Books</h2></header>
-	<div class="row">
+	<div class="row uniform">
 	{% for book in featured_book %}
 		<div class="2u 4u(narrower)">
 		{% if book.get_first_volume_image %}

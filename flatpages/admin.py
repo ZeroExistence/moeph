@@ -1,6 +1,6 @@
 from django.contrib import admin
 from flatpages.forms import FlatpageForm
-from flatpages.models import FlatPage
+from flatpages.models import FlatPage, Image
 from django.utils.translation import gettext_lazy as _
 
 
@@ -17,3 +17,5 @@ class FlatPageAdmin(admin.ModelAdmin):
     list_display = ('url', 'title')
     list_filter = ('sites', 'registration_required')
     search_fields = ('url', 'title')
+
+admin.site.register(Image)

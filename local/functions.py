@@ -13,6 +13,7 @@ def resize(image, width, height):
         exif = img.info['exif']
     img = img.crop(correct_aspect(img, width, height))
     img = img.resize((width,height), PIL.Image.ANTIALIAS)
+    img = img.convert("RGB")
     output = BytesIO()
 
     if exif:

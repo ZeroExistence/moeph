@@ -44,7 +44,7 @@
 
 {% if book_list %}
 	<section class="box">
-	<div class="row">
+	<div class="row uniform">
 	{% for book in book_list %}
 		<div class="2u 4u(narrower)">
 		<span class="image fit">
@@ -56,7 +56,7 @@
 		</span>
 		<header>
 			<a href="{% url 'book:book-detail' book.genre.name book.code %}">
-			<h2>{{ book.title }}</h2>
+			<h4>{{ book.title }}</h4>
 			</a>
 			<p>{{ book.author.name }}</p>
 		</header>

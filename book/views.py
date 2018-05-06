@@ -13,9 +13,10 @@ from .forms import SearchForm
 
 def book_all(request):
 	book_list = Book.on_site.all().order_by('title')
-	paginator = Paginator(book_list, 3)
+	paginator = Paginator(book_list, 30)
 	page = request.GET.get('page')
-	context = {'book_list': paginator.get_page(page),
+	#context = {'book_list': paginator.get_page(page),
+	context = {'book_list': book_list,
 				'all_details': True}
 
 	return render(request, 'book/book_list.html', context)
