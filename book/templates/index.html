@@ -4,93 +4,112 @@
 
 <!-- Banner -->
 {% if request.site.id == 1 %}
-<section id="banner">
-	<h1>moe.ph</h1>
-	<p>Cute and Depressed</p>
-</section>
+<div class="jumbotron bg-cover text-center text-light">
+<div class="py-5 my-5">
+<div class="overlay"></div>
+<h1 class="display-1 my-5">moe.ph</h1>
+<p class="lead my-5">Cute and Depressed</p>
+</div>
+</div>
 {% endif %}
 
 {% if request.site.id == 2 %}
-<section id="banner">
-       <h1>Eros Secret Shoppu</h1>
-       <h2>by moe.ph</h2>
-       <p>Cute and Depressed</p>
-</section>
+<div class="jumbotron bg-cover text-center text-light">
+<div class="py-5 my-5">
+<div class="overlay"></div>
+<h1 class="display-1 my-2">Eros Secret Shoppu</h1>
+<h2 class="display-2 my-1">by moe.ph</h2>
+<p class="lead my-5">Cute and Depressed</p>
+</div>
+</div>
 {% endif %}
 
-<section id="main">
-	<section class="box special">
-	<header class="major">
-	<h2>Not so Mainstream Manga for Everyone</h2>
-	<p>The secret Yuri shop of convention events. We are also selling normal manga and yaoi stuffs, so take your time and take a look.</p>
-	</header>
-	</section>
+
+<div class="card my-4">
+<div class="jumbotron text-center">
+<h1 class="display-5">Not so Mainstream Manga for Everyone</h1>
+<hr class="my-4">
+<p class="lead">The secret Yuri shop of convention events. We are also selling normal manga and yaoi stuffs, so take your time and take a look.</p>
+</div>	
+</div>
 
 {% if new_arrival %}
-	<section class="box special">
-	<header><h2>New Arrivals</h2></header>
-	<div class="row uniform">
+	<div class="jumbotron text-center">
+	<h1 class="jumbotron-heading">New Arrivals</h1>
+	</div>
+	<div class="album p-4 bg-light">
+	<div class="row">
 	{% for volume in new_arrival %}
-		<div class="2u 4u(narrower)">
+		<div class="col-lg-2 col-md-4 col-6">
+		<div class="card mb-2">
 		{% if volume.image %}
-		<span class="image fit"><a href="{% url 'book:book-detail' volume.title.genre volume.title.code %}"><img src="{{ volume.image.url }}" alt="{{ volume.image.name }}" /></a></span>
-		{% endif %}
-		<header>
 		<a href="{% url 'book:book-detail' volume.title.genre volume.title.code %}">
-		<h4>{{ volume.get_title }}</h4>
+		<img class="card-img-top" src="{{ volume.image.url }}" alt="{{ book.get_first_volume_image.name }}"></a>
+		{% endif %}
+		<div class="card-body">
+		<a href="{% url 'book:book-detail' volume.title.genre volume.title.code %}">
+		<h6 class="card-text">{{ volume.get_title }}</h6>
 		</a>
-		</header>
+		</div>
+		</div>
 		</div>
 	{% endfor %}
 	</div>
-	</section>
+	</div>
+
 {% endif %}
 
 {% if featured_book %}
-	<section class="box special">
-	<header><h2>Featured Books</h2></header>
-	<div class="row uniform">
+	<div class="jumbotron text-center">
+	<h1 class="jumbotron-heading">Featured Titles</h1>
+	</div>
+	<div class="album p-4 bg-light">
+	<div class="row">
 	{% for book in featured_book %}
-		<div class="2u 4u(narrower)">
+		<div class="col-lg-2 col-md-4 col-6">
+		<div class="card mb-2">
 		{% if book.get_first_volume_image %}
-		<span class="image fit"><a href="{% url 'book:book-detail' book.genre.name book.code %}"><img src="{{ book.get_first_volume_image.url }}" alt="{{ book.get_first_volume_image.name }}" /></a></span>
-		{% endif %}
-		<header>
 		<a href="{% url 'book:book-detail' book.genre.name book.code %}">
-		<h4>{{ book.title }}</h4>
-		</a>
-		<p>{{ book.author.name }}</p>
-		</header>
+		<img class="card-img-top" src="{{ book.get_first_volume_image.url }}" alt="{{ book.get_first_volume_image.name }}"></a>
+		{% endif %}
+		<div class="card-body">
+		<a href="{% url 'book:book-detail' book.genre.name book.code %}">
+		<h6 class="card-text">{{ book.title }}
+		<small class="text-muted"> by {{ book.author.name }}</small>
+		</h6></a>
+		</div>
+		</div>
 		</div>
 	{% endfor %}
 	</div>
-	</section>
+	</div>
 {% endif %}
 
 {% if genre_list %}
-<section class="container">
-<section class="special">
-<header><h2>Browse Item by Genre</h2></header>
+<div class="jumbotron text-center">
+<h1 class="jumbotron-heading">Browse Item by Genre</h1>
+</div>
+
+<div class="container album p-4">
 <div class="row">
 	{% for genre in genre_list %}
-		<div class="6u 12u(narrower)">
-		<section class="box">
-			{% if genre.image %}
-			<a href="{% url 'book:book' genre.code %}"><span class="image featured"><img src="{{ genre.image.url }}" alt="{{ genre.image.name }}" /></span></a>
-			{% endif %}
-		<h3>{{ genre.name | capfirst }}</h3>
-		<ul class="actions">
-		<li><a href="{% url 'book:book' genre.code %}" class="button alt">Browse {{ genre.name | capfirst }}</a></li>
-		</ul>
-		</section>
-		</div>
+
+	<div class="col-lg-4 col-6">
+	<div class="card mb-2 box-shadow">
+	<div class="card text-center">
+	<div class="card-body">
+	<h5 class="card-title">{{ genre.name | capfirst }}</h5>
+	<p class="card-text"></p>
+	<a href="{% url 'book:book' genre.code %}" class="btn btn-primary">Browse {{ genre.name | capfirst }}</a>
+	</div>
+	</div>
+	</div>
+	</div>
 	{% endfor %}
 
 </div>			
-</section>
-</section>
+</div>
 {% endif %}
 
-</section>
 
 {% endblock %}

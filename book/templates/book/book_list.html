@@ -4,67 +4,60 @@
 
 <!--Main-->
 
-<section id="main">
+<div id="main">
 
 {% if genre_details %}
-	<section class="box special features">
-	<div class="features">
-	<span class="image featured">
-		{% if genre_details.image %}
-		<img src="{{ genre_details.image.url }}" alt="{{ genre_details.image.name }}" />
-		{% endif %}
-	</span>
-	<header>
-	<h2>{{ genre_details.name | capfirst }}</h2>
+<div class="jumbotron text-center">
+<h1 class="jumbotron-heading">{{ genre_details.name | capfirst }}</h1>
 	<p>{{ genre_details.description }}</p>
-	</header>
-	</div>
-	</section>
+</div>
 {% endif %}
 
 
 {% if tag_details %}
-	<section class="box special">
-	<h2>Filter items by Tag: {{ tag_details.name | capfirst }}</h2>
-	</section>
+<div class="jumbotron text-center">
+<h1 class="jumbotron-heading">Filter items by Tag: {{ tag_details.name | capfirst }}</h1>
+</div>
 {% endif %}
 
 {% if all_details %}
-	<section class="box special">
-	<h2>Browse All Books</h2>
-	</section>
+<div class="jumbotron text-center">
+<h1 class="jumbotron-heading">Browse All Books</h1>
+</div>
 {% endif %}
 
 {% if author_details %}
-	<section class="box special">
-	<h2>Filter items by Author: {{ author_details.name }}</h2>
-	</section>
+<div class="jumbotron text-center">
+<h1 class="jumbotron-heading">Filter items by Author: {{ author_details.name }}</h1>
+</div>
 {% endif %}
-
 
 {% if book_list %}
-	<section class="box">
-	<div class="row uniform">
-	{% for book in book_list %}
-		<div class="2u 4u(narrower)">
-		<span class="image fit">
-			{% if book.get_first_volume_image %}
-			<a href="{% url 'book:book-detail' book.genre.name book.code %}">
-			<img src="{{ book.get_first_volume_image.url }}" alt="{{ book.get_first_volume_image.name }}">
-			</a>
-			{% endif %}
-		</span>
-		<header>
-			<a href="{% url 'book:book-detail' book.genre.name book.code %}">
-			<h4>{{ book.title }}</h4>
-			</a>
-			<p>{{ book.author.name }}</p>
-		</header>
-		</div>
-	{% endfor %}
-	</div>
-	</section>
-{% endif %}
+<div class="album p-4 bg-light">
+<div class="row">
 
+{% for book in book_list %}
+<div class="col-lg-2 col-md-4 col-sm-6">
+<div class="card mb-2">
+{% if book.get_first_volume_image %}
+<a href="{% url 'book:book-detail' book.genre.name book.code %}">
+<img class="card-img-top" src="{{ book.get_first_volume_image.url }}" alt="{{ book.get_first_volume_image.name }}">
+</a>
+{% endif %}
+<div class="card-body">
+<a href="{% url 'book:book-detail' book.genre.name book.code %}">
+<h6 class="card-text">{{ book.title }}
+<small class="text-muted"> by {{ book.author }}</small>
+</h6></a>
+</div>
+
+</div>
+</div>
+{% endfor %}
+
+{% endif %}
+</div>
+</div>
+</div>
 
 {% endblock %}

@@ -3,128 +3,131 @@
 {% block content %}
 
 <!--Main-->
-<section id="main" class="container">
+<div id="main">
 
 
 {% if book %}
-	<section class="box special features">
-	<div class="features">
-	<span class="image featured">
-		{% if book.banner %}
-		<img src="{{ book.banner.url }}" alt="{{ book.banner.name }}" />
-		{% endif %}
-	</span>
-	<header>
-	<h2>{{ book.title }}</h2>
-	<p>{{ book.summary }}</p>
-	</header>
-	<hr>
-	<div class="row">
-	<div class="4u 12u(narrower)">
-	<p>Author: 
+	<div class="card m-4">
+	<div class="card-body">
+	<h2 class="card-title">{{ book.title }}</h2>
+	<p class="card-text">{{ book.summary }}</p>
+	<ul class="list-group list-group-flush">
+	<li class="list-group-item">Author: 
+		<a href="{% url 'book:book-author' book.author.code %}">{{ book.author.name }}</a> 
+	</li>
+	<li class="list-group-item">Genre: 
+		<a href="{% url 'book:book' book.genre.code %}">{{ book.genre.name }}</a> 
+	</li>
+	<li class="list-group-item">Tags: 
+		{% for tag in book.get_tags %}
+			<a href="{% url 'book:book-tag' tag.code %}">{{ tag.name }}</a>, 
+		{% endfor %}
+	</li>
+	</ul>
+	<!--
+	<p class="card-text">Author: 
 		<a href="{% url 'book:book-author' book.author.code %}">{{ book.author.name }}</a> 
 	</p>
-	</div>	
-	<div class="4u 12u(narrower)">
-	<p>Genre: 
+	<p class="card-text">Genre: 
 		<a href="{% url 'book:book' book.genre.code %}">{{ book.genre.name }}</a> 
 	</p>
-	</div>
-	<div class="4u 12u(narrower)">
-	<p>Tags: 
+	<p class="card-text">Tags: 
 		{% for tag in book.get_tags %}
 			<a href="{% url 'book:book-tag' tag.code %}">{{ tag.name }}</a>, 
 		{% endfor %}
 	</p>
+	-->
 	</div>
 	</div>
-	</div>
-	
-	</section>
 
 {% endif %}
 
 {% if book.volume_set.all %}
-<section class="box">
+<div class="album p-4 bg-light">
 <div class="row">
+
 {% for volume in book.volume_set.all %}
 
 	{% if book.volume_set.count == 1 %}
 
-	<div class="6u 12u(narrower)">
-	<span class="image fit">
-		{% if volume.image %}
-		<img src="{{ volume.image.url }}">
-		{% endif %}
-	</span>
+	<div class="col-lg-6 col-md-6">
+	<div class="card mb-4 box-shadow">
+	{% if volume.image %}
+	<img src="{{ volume.image.url }}" class="card-img-top">
+	{% endif %}
+	<div class="card-body">
+	{% if volume.alt_title %}
+	<h4 class="card-title">{{ volume.alt_title }}</h4>
+	{% else %}
+	<h4 class="card-title">{{ volume.title }} {{ volume.volume }}</h4>
+	{% endif %}
+	<h5 class="card-text">Price:
+	<small>P{{ volume.price }}</small>
+	</h5>
 	</div>
-	<div class="6u 12u(narrower)">
-	<header>
-		{% if volume.alt_title %}
-		<h2>{{ volume.alt_title }}</h2>
-		{% else %}
-		<h2>{{ volume.title }}</h2>
-		{% endif %}
-	
-		<p>{{ volume.get_availability }}</p>
-	</header>
-	<h4>Price</h4>
-	<p>P{{ volume.price }}</p>
+	<div class="card-footer text-muted">
+	{{ volume.get_availability }}
+	</div>
+	</div>
 	</div>
 
-	{% elif book.volume_set.count == 2%}
-	<div class="6u 12u(narrower)">
-	<span class="image fit">
-		{% if volume.image %}
-		<img src="{{ volume.image.url }}">
-		{% endif %}
-	</span>
-	<header>
-		{% if volume.alt_title %}
-		<h2>{{ volume.alt_title }}</h2>
-		{% else %}
-		<h2>{{ volume.title }} {{ volume.volume }}</h2>
-		{% endif %}
-	
-		<p>{{ volume.get_availability }}</p>
-	</header>
-	<h4>Price</h4>
-	<p>P{{ volume.price }}</p>
+	{% elif book.volume_set.count == 2 %}
+	<div class="col-lg-6 col-md-6">
+	<div class="card mb-4 box-shadow">
+	{% if volume.image %}
+	<img src="{{ volume.image.url }}" class="card-img-top">
+	{% endif %}
+	<div class="card-body">
+	{% if volume.alt_title %}
+	<h4 class="card-title">{{ volume.alt_title }}</h4>
+	{% else %}
+	<h4 class="card-title">{{ volume.title }} {{ volume.volume }}</h4>
+	{% endif %}
+	<h5 class="card-text">Price:
+	<small>P{{ volume.price }}</small>
+	</h5>
 	</div>
+	<div class="card-footer text-muted">
+	{{ volume.get_availability }}
+	</div>
+	</div>
+	</div>
+
 
 	{% else %}
-	<div class="4u 6u(narrower)">
-	<span class="image fit">
-		{% if volume.image %}
-		<img src="{{ volume.image.url }}">
-		{% endif %}
-	</span>
-	<header>
-		{% if volume.alt_title %}
-		<h2>{{ volume.alt_title }}</h2>
-		{% else %}
-		<h2>{{ volume.title }} {{ volume.volume }}</h2>
-		{% endif %}
-	
-		<p>{{ volume.get_availability }}</p>
-	</header>
-	<h4>Price</h4>
-	<p>P{{ volume.price }}</p>
-	</div>
-
+	<div class="col-lg-4 col-md-6">
+	<div class="card mb-4 box-shadow">
+	{% if volume.image %}
+	<img src="{{ volume.image.url }}" class="card-img-top">
 	{% endif %}
-
+	<div class="card-body">
+	{% if volume.alt_title %}
+	<h4 class="card-title">{{ volume.alt_title }}</h4>
+	{% else %}
+	<h4 class="card-title">{{ volume.title }} {{ volume.volume }}</h4>
+	{% endif %}
+	<h5 class="card-text">Price:
+	<small>P{{ volume.price }}</small>
+	</h5>
+	</div>
+	<div class="card-footer text-muted">
+	{{ volume.get_availability }}
+	</div>
+	</div>
+	</div>
+	{% endif %}
 
 {% endfor %}
 </div>
-<section class="special">
-<h3>Get in touch with us via <a href="https://m.me/be.moe.ph">Messenger</a> or get our contact details <a href="{% url 'flatpages:flatpage' 'about-us' %}#contact">Here</a>!</h3>
-<p></p>
-</section>
-</section>
-{% endif %}
+</div>
 
-</section>
+<div class="jumbotron text-center">
+<h3>Get in touch with us via <a href="https://m.me/be.moe.ph">Messenger</a>!</h3>
+<p></p>
+</div>
+
+{% endif %}
+</div>
 
 <!-- CTA -->
 

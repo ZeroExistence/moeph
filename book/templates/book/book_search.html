@@ -4,59 +4,50 @@
 
 <!--Main-->
 
-<section id="main">
-
-	<section class="box special features">
-	<div class="features">
-	<section>
-	<form method="get" action="{% url 'book:book-search' %}">
-	<input type="text" name="q" maxlength="100" required id="id_q" placeholder="Search Books Here" />
+<div class="card my-4">
+<div class="jumbotron text-center">
+<h1 class="display-5">Search Result for "{{ get_form }}"</h1>
+<hr class="my-4">
+<form class="my-6 my-lg-0" method="get" action="{% url 'book:book-search' %}">
+	<input class="form-control mr-sm-2" type="text" name="q" maxlength="100" required id="id_q" placeholder="Search Item Here" value="{{ get_form }}"/>
+	<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 	</form>
-	<header>
-	<h2>{{ genre_details.name | capfirst }}</h2>
-	<p>{{ genre_details.description }}</p>
-	</header>
-	</section>
-	</div>
-	</section>
+</div>	
+</div>
 
-<section class="container">
 
 {% if search_result %}
-<section class="box">
+<div class="album p-4 bg-light">
 <div class="row">
 {% for book in search_result %}
-	<div class="4u 6u(narrower)">
-	<span class="image fit">
+		<div class="col-lg-2 col-md-4 col-6">
+		<div class="card mb-2 box-shadow">
 		{% if book.get_first_volume_image %}
 		<a href="{% url 'book:book-detail' book.genre.code book.code %}">
-		<img src="{{ book.get_first_volume_image.url }}" alt="{{ book.get_first_volume_image.name }}"></a>
+		<img class="card-img-top" src="{{ book.get_first_volume_image.url }}" alt="{{ book.get_first_volume_image.name }}"></a>
 		{% endif %}
-	</span>
-	<header>
+		<div class="card-body">
 		<a href="{% url 'book:book-detail' book.genre.code book.code %}">
-		<h2>{{ book.title }}</h2>
-		</a>
-		<p>{{ book.author.name }}</p>
-	</header>
+		<h6 class="card-text">{{ book.title }}
+		<small class="text-muted">{{ book.author.name }}</small>
+		</h6></a>
 	</div>
+</div>
+</div>
 {% endfor %}
 </div>
-</section>
+</div>
 
 {% else %}
 
-<section class="box">
-<div class="row special">
-	<header>
-		<h2>No book found for query "{{ get_form }}"</h2>
+<div class="card my-4">
+	<div class="jumbotron text-center">
+		<h1 class="display-5">No book found for query "{{ get_form }}"</h1>
 		<a href="{% url 'index' %}">
 		<p>Go back to Home</p></a>
-	</header>
+	</div>
 </div>
-</section>
 
 {% endif %}
 
-</section>
 {% endblock %}

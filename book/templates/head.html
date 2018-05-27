@@ -11,16 +11,79 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 </title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<!--[if lte IE 8]><script src="{% static 'js/ie/html5shiv.js' %}"></script><![endif]-->
-<link rel="stylesheet" href="{% static 'css/main.css' %}" />
-<link rel="icon" type="image/png" href="{% static 'favicon.png' %}" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 
-<!--[if lte IE 8]><link rel="stylesheet" href="{% static 'css/ie8.css' %}" /><![endif]-->
+<link rel="icon" type="image/png" href="{% static 'favicon.png' %}" />
+<link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
 </head>
 <body>
 <!-- <div id="page-wrapper">-->
 
-<!-- Header -->
+<nav class="navbar navbar-expand-md navbar-light bg-pink">
+<a class="navbar-brand" href="{% url 'index' %}">moe.ph</a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+
+{% if request.site.id == 1 %}
+<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+<ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a class="nav-link" href="{% url 'book:book' 'manga' %}">Manga</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="{% url 'book:book' 'yuri' %}">Yuri</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="{% url 'book:book' 'yaoi' %}">Yaoi</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="{% url 'book:book-all' %}">Browse All</a>
+</li>
+<li class="nav-item dropdown">
+<a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">External Links</a>
+<div class="dropdown-menu" aria-labelledby="dropdown01">
+<a class="dropdown-item" href="https://eros.moe.ph">Eros Secret Shoppu</a>
+<a class="dropdown-item" href="https://facebook.com/be.moe.ph">Facebook Page</a>
+<a class="dropdown-item" href="https://m.me/be.moe.ph">Messenger</a>
+<a class="dropdown-item" href="https://github.com/ZeroExistence">Github</a>
+</div>
+</li>
+</ul>
+{% endif %}
+
+{% if request.site.id == 2 %}
+<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+<ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a class="nav-link" href="{% url 'book:book' 'hentai' %}">Hentai</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="{% url 'book:book-all' %}">Browse All</a>
+</li>
+<li class="nav-item dropdown">
+<a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">External Links</a>
+<div class="dropdown-menu" aria-labelledby="dropdown01">
+<a class="dropdown-item" href="https://moe.ph">moe.ph</a>
+<a class="dropdown-item" href="https://facebook.com/be.moe.ph">Facebook Page</a>
+<a class="dropdown-item" href="https://m.me/be.moe.ph">Messenger</a>
+<a class="dropdown-item" href="https://github.com/ZeroExistence">Github</a>
+</div>
+</li>
+</ul>
+{% endif %}
+
+<form class="form-inline my-2 my-lg-0" method="get" action="{% url 'book:book-search' %}">
+<input class="form-control mr-sm-2" type="text" name="q" maxlength="100" required id="id_q" placeholder="Search Item Here" />
+<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+</form>
+</div>
+</nav>
+
+
+<!-- Header 
 <header id="header">
 <h1><a href="{% url 'index' %}">moe.ph</a></h1>
 <nav id="nav">
@@ -49,32 +112,39 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 </ul>
 </nav>
 </header>
-
+-->
 
 {% block content %} {% endblock %}
 
-<!-- Footer -->
-<footer id="footer">
-<ul class="icons">
-<li><a href="https://twitter.com/eros_s2_ph" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-<li><a href="https://facebook.com/be.moe.ph/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-<li><a href="https://github.com/ZeroExistence/" class="icon fa-github"><span class="label">Github</span></a></li>
+
+<footer class="text-muted bg-light">
+<div class="container">
+<div class="row">	
+<div class="col-md-6 col-sm-12">
+<ul class="list-unstyled text-small">
+<li>&copy; moe.ph. All rights reserved.</li>
+<li>Design: <a href="http://html5up.net">HTML5 UP</a>
+<li>Design: <a href="https://getbootstrap.com">Bootstrap</a>
+</li><li>Framework: <a href="https://www.djangoproject.com/">Django</a></li>
 </ul>
-<ul class="copyright">
-<li>&copy; moe.ph. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li><li>Framework: <a href="https://www.djangoproject.com/">Django</a></li>
+</div>
+<div class="col-md-6 col-sm-12">
+<p class="float-right">
+<a href="#">Back to top <i class="fas fa-arrow-up"></i></a> 
+</p>
+<ul class="list-unstyled text-small">
+<li><a href="https://facebook.com/be.moe.ph"><i class="fab fa-facebook"></i> - Facebook</a></li>
+<li><a href="https://m.me/be.moe.ph"><i class="fab fa-facebook-messenger"></i> - Messenger</a></li>
+<li><a href="https://github.com/ZeroExistence"><i class="fab fa-github"></i> - Github</a></li>
 </ul>
+</div>
+</div>
+</div>
 </footer>
 
-<!-- </div>-->
-
-<!-- Scripts -->
-<script src="{% static 'js/jquery.min.js' %}"></script>
-<script src="{% static 'js/jquery.dropotron.min.js' %}"></script>
-<script src="{% static 'js/jquery.scrollgress.min.js' %}"></script>
-<script src="{% static 'js/skel.min.js' %}"></script>
-<script src="{% static 'js/util.js' %}"></script>
-<!--[if lte IE 8]><script src="{% static 'js/ie/respond.min.js' %}"></script><![endif]-->
-<script src="{% static 'js/main.js' %}"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 
 </body>
 </html>
