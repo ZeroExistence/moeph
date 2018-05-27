@@ -14,9 +14,9 @@ def volume_directory_location(instance, filename):
 
 class Genre(models.Model):
 	code = models.SlugField(max_length=50, null=True, blank=True, editable=False)
-	name = models.CharField(max_length=50, help_text="Enter a book genre")
+	name = models.CharField(max_length=50, help_text="Enter a book genre", unique=True)
 	description = models.TextField(max_length=1000, null=True, blank=True)
-	image = models.ImageField(upload_to='{0}/book/'.format(settings.MEDIA_ROOT), help_text="Images to be uploaded here will be resized to 1000x300", null=True, blank=True)
+	image = models.ImageField(upload_to='{0}/genre/'.format(settings.MEDIA_ROOT), help_text="Images to be uploaded here will be resized to 1000x300", null=True, blank=True)
 	site = models.ForeignKey(Site, on_delete=models.CASCADE)
 	objects = models.Manager()
 	on_site = CurrentSiteManager()
@@ -35,7 +35,7 @@ class Genre(models.Model):
 
 class Book(models.Model):
 	code = models.SlugField(max_length=200, null=True, blank=True, editable=False)
-	title = models.CharField(max_length=200)
+	title = models.CharField(max_length=200, unique=True)
 	author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True, blank=True)
 	summary = models.TextField(max_length=1000, null=True, blank=True)
 	genre = models.ForeignKey(Genre, on_delete=models.SET_NULL, null=True, blank=True)
@@ -80,7 +80,7 @@ class Book(models.Model):
 
 class Author(models.Model):
 	code = models.SlugField(max_length=200, null=True, blank=True, editable=False)
-	name = models.CharField(max_length=200)
+	name = models.CharField(max_length=200, unique=True)
 
 	class Meta:
 		ordering = ["name"]
@@ -99,7 +99,7 @@ class Volume(models.Model):
 	alt_title = models.CharField(max_length=200, null=True, blank=True)
 	price = models.PositiveSmallIntegerField()
 	inventory = models.PositiveSmallIntegerField()
-	image = models.ImageField(upload_to=volume_directory_location, help_text="Images to be uploaded here will be resized to 400x600" , blank=True)
+	image = models.ImageField(upload_to='{0}/volume/'.format(settings.MEDIA_ROOT), help_text="Images to be uploaded here will be resized to 400x600" , blank=True)
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 
@@ -140,7 +140,7 @@ class Volume(models.Model):
 
 class Tag(models.Model):
 	code = models.SlugField(max_length=50, null=True, blank=True, editable=False)
-	name = models.CharField(max_length=50)
+	name = models.CharField(max_length=50, unique=True)
 
 
 	def get_absolute_url(self):
