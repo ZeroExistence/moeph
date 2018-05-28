@@ -2,14 +2,12 @@
 
 {% block content %}
 
-<section id="main">
-	<section class="box special">
-	<header class="major">
-	<h2>{{ page.title }}</h2>
-	{{ page.description | safe }}
-	</header>
-	</section>
-
-</section>
+<div class="card m-4">
+<div class="card-body">
+<h2 class="card-title">{{ flatpage.title }}</h2>
+<hr class="my-4">
+{{ flatpage.content | safe }}
+</div>
+</div>
 
 {% endblock %}
