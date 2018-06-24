@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     #'page.apps.PageConfig',
     'book.apps.BookConfig',
     'flatpages.apps.FlatPagesConfig',
+    'shirt.apps.ShirtConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -56,7 +57,7 @@ MIDDLEWARE = [
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['common/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

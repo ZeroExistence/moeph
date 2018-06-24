@@ -1,0 +1,46 @@
+{% extends "head.html" %}
+
+{% block content %}
+
+<!--Main-->
+
+<div id="main">
+
+{% if shirt %}
+	<div class="card m-4">
+	<div class="card-body">
+	<h2 class="card-title">{{ shirt.name }}</h2>
+	<p class="card-text">{{ book.summary }}</p>
+	</div>
+	</div>
+
+{% endif %}
+
+<div class="row p-4 bg-light">
+
+{% for image in shirt.image.linked_images.all %}
+
+	<div class="col-md-6">
+	{% if image.image %}
+	<figure class="figure">
+		<img src="{{ image.image.url }}" class="card-img-top">
+		{% if image.credits %}
+			<figcaption class="figure-caption">{{ image.credits | safe}}</figcaption>
+		{% endif %}
+	</figure>
+	{% endif %}
+
+	</div>
+
+{% endfor %}
+
+</div>
+
+
+</div>
+
+{% endblock %}
+
+
+
+
