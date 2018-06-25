@@ -42,6 +42,9 @@ class Image(models.Model):
 	def __str__(self):
 		return self.name
 
+	def get_shirt(self):
+		return self.shirtimage_set.get(linked_images=self.id).name
+
 	## For auto-slugify
 	def save(self, *args, **kwargs):
 		self.code = slugify(self.name)
@@ -50,7 +53,7 @@ class Image(models.Model):
 		super(Image, self).save(*args, **kwargs)
 
 	class Meta:
-		ordering = ["name", "weight"]
+		ordering = ["weight", "name"]
 
 class ShirtImage(models.Model):
 	code = models.SlugField(max_length=200, null=True, blank=True, editable=False)
