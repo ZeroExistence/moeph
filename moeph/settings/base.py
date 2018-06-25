@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'book.apps.BookConfig',
     'flatpages.apps.FlatPagesConfig',
     'shirt.apps.ShirtConfig',
+    'siteinfo.apps.SiteinfoConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
