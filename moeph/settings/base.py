@@ -53,6 +53,7 @@ MIDDLEWARE = [
     'flatpages.middleware.FlatpageFallbackMiddleware',
     'django.contrib.sites.middleware.CurrentSiteMiddleware',
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
+    'siteinfo.middleware.SimpleMiddleware',
 ]
 
 TEMPLATES = [
@@ -67,6 +68,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
+                'siteinfo.context.siteinfo',
             ],
         },
     },
