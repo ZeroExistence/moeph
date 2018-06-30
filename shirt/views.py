@@ -12,7 +12,7 @@ from .models import Shirt, Image
 
 def shirt_all(request):
 	shirt_list = Shirt.on_site.all().order_by('name')
-	image_list = Image.objects.order_by('landscape').reverse()
+	image_list = Image.objects.order_by('?').reverse()
 	paginator = Paginator(shirt_list, 30)
 	page = request.GET.get('page')
 	#context = {'book_list': paginator.get_page(page),

@@ -13,6 +13,7 @@ class Shirt(models.Model):
 	name = models.CharField(max_length=200, unique=True)
 	description = models.TextField(max_length=2000, null=True, blank=True)
 	featured = models.BooleanField(default=False)
+	inventory = models.PositiveSmallIntegerField(default=0)
 	site = models.ForeignKey(Site, on_delete=models.CASCADE, default=1)
 	objects = models.Manager()
 	on_site = CurrentSiteManager()
@@ -29,6 +30,9 @@ class Shirt(models.Model):
 	def get_absolute_url(self):
 		return reverse('shirt:shirt-detail', args=[str(self.code)])
 
+	def get_first_shirt_image(self):
+		return self.image_set.first()
+
 	## For auto-slugify
 	def save(self, *args, **kwargs):
 		self.code = slugify(self.name)
@@ -38,12 +42,15 @@ class Shirt(models.Model):
 		ordering = ["name"]
 
 class Image(models.Model):
+
+	__image = None
+
 	shirt = models.ForeignKey(Shirt, on_delete=models.SET_NULL, null=True, blank=True)
 	note = models.CharField(max_length=200, null=True, blank=True)
 	credits = models.TextField(max_length=200, null=True, blank=True)
 	image = models.ImageField(upload_to='{0}/shirt/'.format(settings.MEDIA_ROOT), help_text="Images will be uploaded with original size", null=True, blank=True)
-	weight = models.PositiveSmallIntegerField()
-	landscape = models.BooleanField(default=True, editable=False)
+	thumbnail = models.ImageField(upload_to='{0}/shirtthumb/'.format(settings.MEDIA_ROOT), help_text="Thumbnail", null=True, blank=True)
+	weight = models.PositiveSmallIntegerField(default=9)
 
 	def __str__(self):
 		if self.shirt:
@@ -51,10 +58,15 @@ class Image(models.Model):
 		else:
 			return '{0} - {1}'.format(self.note, self.weight)
 
+	def __init__(self, *args, **kwargs):
+		super(Image, self).__init__(*args, **kwargs)
+		self.__image = self.image
+
 	## For auto-slugify
 	def save(self, *args, **kwargs):
-		if self.image:
-			self.landscape = functions.is_landscape(self.image)
+		if self.image != self.__image:
+			self.thumbnail = functions.thumbnail(self.image, 720, 720)
+
 		super(Image, self).save(*args, **kwargs)
 
 	class Meta:

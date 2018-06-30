@@ -1,5 +1,21 @@
 {% extends "head.html" %}
 
+{% block title %}
+<title>moe.ph - {{ shirt.name }}
+</title>
+{% endblock %}
+
+{% block meta %}
+<meta property="og:url"                content="{{ request.build_absolute_uri }}" />
+<meta property="og:type"               content="website" />
+<meta property="og:title"              content="moe.ph - {{ shirt.name }}" />
+<meta property="og:description"        content="{{ shirt.description | truncatechars:190 }}" />
+<meta property="og:image"              content="{{ shirt.get_first_shirt_image.image.url }}" />
+
+<meta name="moe.ph - {{ shirt.name }}" content="{{ shirt.description | truncatechars:190 }}">
+
+{% endblock %}
+
 {% block content %}
 
 <!--Main-->
@@ -13,32 +29,25 @@
 	<p class="card-text">{{ book.summary }}</p>
 	</div>
 	</div>
-
 {% endif %}
 
-<div class="row p-4 bg-light">
+<div class="card-columns p-4 bg-light">
 
 {% for image in shirt.get_images %}
 
-	<div class="col-md-6">
-	{% if image.image %}
-	<figure class="figure">
-		<img src="{{ image.image.url }}" class="card-img-top">
-		{% if image.credits %}
-			<figcaption class="figure-caption">{{ image.credits | safe}}</figcaption>
-		{% endif %}
-	</figure>
+<div class="card mb-2">
+{% if image.image %}
+	<img class="card-img-top" src="{{ image.image.url }}" alt="{{ image.shirt.name }}">
+	{% if image.credits %}
+		<div class="card-footer">
+		<small class="text-muted">{{ image.credits | safe}}</small>
+		</div>
 	{% endif %}
-
-	</div>
-
+{% endif %}
+</div>
 {% endfor %}
-
 </div>
-
-
 </div>
-
 {% endblock %}
 
 

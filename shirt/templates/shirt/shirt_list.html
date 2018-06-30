@@ -8,35 +8,25 @@
 
 {% if all_details %}
 <div class="jumbotron text-center">
-<h1 class="jumbotron-heading">Browse All Books</h1>
+<h1 class="jumbotron-heading">Shirts</h1>
 </div>
 {% endif %}
 
 {% if image_list %}
-<div class="album p-4 bg-light">
-<div class="row">
+<div class="card-columns p-4 bg-light">
 
 {% for image in image_list %}
-{% if image.landscape == True %}
-<div class="col-lg-6 col-md-12">
-{% else %}
-<div class="col-lg-4 col-md-6">
-{% endif %}
 <a href="{% url 'shirt:shirt-detail' image.shirt.code %}">
 <div class="card mb-2">
-<img class="card-img-top" src="{{ image.image.url }}" alt="{{ image.shirt.name }}">
-<div class="card-body">
-<h6 class="card-text">{{ image.shirt.name }}</h6>
-</div>
+<img class="card-img-top" src="{{ image.image.url }}" alt="{{ image.name }}">
 </div>
 </a>
-</div>
-
 {% endfor %}
 
+</div>
+
 {% endif %}
-</div>
-</div>
+
 </div>
 
 {% endblock %}
