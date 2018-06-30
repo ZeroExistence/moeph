@@ -53,3 +53,10 @@ def correct_aspect(img, width, height):
         uset = 0
         dset = oheight
     return (round(lset,2), round(uset,2), round(rset,2), round(dset,2))
+
+def is_landscape(image):
+    img = pilimage.open(image)
+    if img.width > img.height:
+        return True
+    else:
+        return False
