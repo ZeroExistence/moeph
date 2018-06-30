@@ -12,21 +12,26 @@
 </div>
 {% endif %}
 
-{% if shirt_list %}
+{% if image_list %}
 <div class="album p-4 bg-light">
 <div class="row">
 
-{% for shirt in shirt_list %}
-<div class="col-lg-2 col-md-4 col-sm-6">
+{% for image in image_list %}
+{% if image.landscape == True %}
+<div class="col-lg-6 col-md-12">
+{% else %}
+<div class="col-lg-4 col-md-6">
+{% endif %}
+<a href="{% url 'shirt:shirt-detail' image.shirt.code %}">
 <div class="card mb-2">
+<img class="card-img-top" src="{{ image.image.url }}" alt="{{ image.shirt.name }}">
 <div class="card-body">
-<a href="{% url 'shirt:shirt-detail' shirt.code %}">
-<h6 class="card-text">{{ shirt.name }}
-</h6></a>
+<h6 class="card-text">{{ image.shirt.name }}</h6>
+</div>
+</div>
+</a>
 </div>
 
-</div>
-</div>
 {% endfor %}
 
 {% endif %}
