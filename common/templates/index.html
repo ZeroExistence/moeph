@@ -1,37 +1,39 @@
 {% extends "head.html" %}
 
+{% block title %}
+<title>moe.ph</title>
+{% endblock %}
+
+{% block meta %}
+<!--
+Facebook Metadata
+<meta property="og:url"                content="URL" />
+<meta property="og:type"               content="article" />
+<meta property="og:title"              content="TITLE" />
+<meta property="og:description"        content="DESCRIPTION" />
+<meta property="og:image"              content="IMAGE" />
+
+Google Metadata
+<meta name="Description" content="Author: A.N. Author, Illustrator: P. Picture, Category: Books, Price:  £9.24, Length: 784 pages">
+-->
+{% endblock %}
+
+{% block banner %}
+<style>
+.bg-cover {
+  background-image: url('{{ site_info.banner.url }}');
+}
+</style>
+{% endblock %}
+
 {% block content %}
 
 <!-- Banner -->
-{% if request.site.id == 1 %}
-<div class="jumbotron bg-cover text-center text-light">
-<div class="py-5 my-5">
-<div class="overlay"></div>
-<h1 class="display-1 my-5">moe.ph</h1>
-<p class="lead my-5">Cute and Depressed</p>
-</div>
-</div>
-{% endif %}
 
-{% if request.site.id == 2 %}
-<div class="jumbotron bg-cover text-center text-light">
-<div class="py-5 my-5">
-<div class="overlay"></div>
-<h1 class="display-1 my-2">Eros Secret Shoppu</h1>
-<h2 class="display-2 my-1">by moe.ph</h2>
-<p class="lead my-5">Cute and Depressed</p>
-</div>
-</div>
-{% endif %}
+{{ site_info.header | safe }}
+{{ site_info.description | safe }}
 
 
-<div class="card my-4">
-<div class="jumbotron text-center">
-<h1 class="display-5">Not so Mainstream Manga for Everyone</h1>
-<hr class="my-4">
-<p class="lead">The secret Yuri shop of convention events. We are also selling normal manga and yaoi stuffs, so take your time and take a look.</p>
-</div>	
-</div>
 
 {% if new_arrival %}
 	<div class="jumbotron text-center">

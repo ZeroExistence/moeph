@@ -54,9 +54,19 @@ def correct_aspect(img, width, height):
         dset = oheight
     return (round(lset,2), round(uset,2), round(rset,2), round(dset,2))
 
-def is_landscape(image):
+# Create thumbnail with this function.
+def thumbnail(image, width, height):
     img = pilimage.open(image)
-    if img.width > img.height:
-        return True
+    exif = None
+    if 'exif' in img.info:
+        exif = img.info['exif']
+    img.thumbnail((width, height))
+    output = BytesIO()
+
+    if exif:
+        img.save(output, format='JPEG', exif=exif, quality=90)
     else:
-        return False
+        img.save(output, format='JPEG', quality=90)
+
+    output.seek(0)
+    return InMemoryUploadedFile(output, 'ImageField', "%s" % image.name, 'image/jpeg', output.getbuffer().nbytes, None)
