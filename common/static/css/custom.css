@@ -7,7 +7,6 @@
   padding-bottom: var(--jumbotron-padding-y);
   margin-bottom: 0;
   background-color: #fff;
-  /*background: url('/static/images/banner.jpg') no-repeat center center; */
 }
 @media (min-width: 768px) {
   .jumbotron {
@@ -40,7 +39,7 @@ footer p {
 .box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
 
 .bg-cover {
-  background-image: url('/static/images/banner2.jpg');
+  background-image: url('/static/images/banner.jpg');
   /* Full height */
   height: 100%; 
 
