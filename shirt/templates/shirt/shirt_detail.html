@@ -31,13 +31,13 @@
 	</div>
 {% endif %}
 
-<div class="card-columns p-4 bg-light">
+<div class="card-columns-2 p-4 bg-light">
 
 {% for image in shirt.get_images %}
 
 <div class="card mb-2">
 {% if image.image %}
-	<img class="card-img-top" src="{{ image.image.url }}" alt="{{ image.shirt.name }}">
+	<img class="card-img-top" src="{{ image.thumbnail.url }}" alt="{{ image.shirt.name }}">
 	{% if image.credits %}
 		<div class="card-footer">
 		<small class="text-muted">{{ image.credits | safe}}</small>

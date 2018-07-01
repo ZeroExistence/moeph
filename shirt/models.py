@@ -49,7 +49,7 @@ class Image(models.Model):
 	note = models.CharField(max_length=200, null=True, blank=True)
 	credits = models.TextField(max_length=200, null=True, blank=True)
 	image = models.ImageField(upload_to='{0}/shirt/'.format(settings.MEDIA_ROOT), help_text="Images will be uploaded with original size", null=True, blank=True)
-	thumbnail = models.ImageField(upload_to='{0}/shirtthumb/'.format(settings.MEDIA_ROOT), help_text="Thumbnail", null=True, blank=True)
+	thumbnail = models.ImageField(upload_to='{0}/shirtthumb/'.format(settings.MEDIA_ROOT), help_text="Thumbnail", null=True, blank=True, editable=False)
 	weight = models.PositiveSmallIntegerField(default=9)
 
 	def __str__(self):
@@ -62,10 +62,10 @@ class Image(models.Model):
 		super(Image, self).__init__(*args, **kwargs)
 		self.__image = self.image
 
-	## For auto-slugify
 	def save(self, *args, **kwargs):
 		if self.image != self.__image:
-			self.thumbnail = functions.thumbnail(self.image, 720, 720)
+			self.thumbnail = functions.thumbnail(self.image, 360, 640)
+			self.image = functions.thumbnail(self.image, 720, 1280)
 
 		super(Image, self).save(*args, **kwargs)
 
