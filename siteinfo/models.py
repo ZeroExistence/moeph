@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.sites.models import Site
 from django.conf import settings
+from django.contrib.sites.managers import CurrentSiteManager
 
 # Create your models here.
 
@@ -13,3 +14,21 @@ class SiteInfo(models.Model):
 	
 	def __str__(self):
 		return self.name
+
+class Navigation(models.Model):
+	name = models.CharField(max_length=100, help_text="Enter a book genre", unique=True)
+	url = models.CharField(max_length=50, null=True, blank=True)
+	site = models.ManyToManyField(Site, blank=True)
+	weight = models.PositiveSmallIntegerField(default=9)
+	submenu = models.ForeignKey('Navigation', on_delete=models.SET_NULL, null=True, blank=True)
+	objects = models.Manager()
+	on_site = CurrentSiteManager()
+
+	class Meta:
+		ordering = ['weight']
+
+	def __str__(self):
+		return self.name
+
+	def get_submenu(self):
+		return self.navigation_set.all()

@@ -21,7 +21,6 @@ DEFAULT_TEMPLATE = 'flatpages/default.html'
 
 from book.models import Book, Genre, Volume
 from django.views import generic
-from siteinfo.models import SiteInfo
 
 
 def flatpage(request, url):
@@ -75,7 +74,6 @@ def render_flatpage(request, f):
     return response
 
 
-
 def index(request):
     current_site = request.site
     try:
@@ -83,10 +81,8 @@ def index(request):
         featured_book = Book.on_site.filter(featured=True)
         genre_list = Genre.on_site.all()
     except:
-            raise Http404()
-    site_info = SiteInfo.objects.get(site__id=current_site.id)
+        raise Http404()
     return render(request, 'index.html', 
         {'new_arrival': new_arrival, 
         'featured_book': featured_book, 
-        'genre_list': genre_list,
-        'site_info' : site_info})
+        'genre_list': genre_list})
