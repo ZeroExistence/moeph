@@ -26,7 +26,13 @@
 	<div class="card m-4">
 	<div class="card-body">
 	<h2 class="card-title">{{ shirt.name }}</h2>
-	<p class="card-text">{{ book.summary }}</p>
+	<p class="card-text">{{ shirt.description }}</p>
+	<ul class="list-group list-group-flush">
+	<li class="list-group-item">Price: P{{ shirt.price }}
+	</li>
+	<li class="list-group-item">Available Sizes: {{ shirt.get_available_sizes }}
+	</li>
+	</ul>
 	</div>
 	</div>
 {% endif %}
@@ -47,7 +53,12 @@
 </div>
 {% endfor %}
 </div>
+
+<div class="jumbotron text-center">
+<h3>Get in touch with us via <a href="https://m.me/be.moe.ph">Messenger</a>!</h3>
+<p></p>
 </div>
+
 {% endblock %}
 
 

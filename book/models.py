@@ -49,7 +49,7 @@ class Book(models.Model):
 		return self.title
 
 	def display_tag(self):
-		return ', '.join([ tag.name for tag in self.tag.all()[:10] ])
+		return ', '.join([ tag.name for tag in self.tag.all() ])
 
 	def is_featured(self):
 		return self.featured

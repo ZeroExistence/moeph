@@ -13,7 +13,7 @@ class Shirt(models.Model):
 	name = models.CharField(max_length=200, unique=True)
 	description = models.TextField(max_length=2000, null=True, blank=True)
 	featured = models.BooleanField(default=False)
-	inventory = models.PositiveSmallIntegerField(default=0)
+	price = models.PositiveSmallIntegerField(default=0)
 	site = models.ForeignKey(Site, on_delete=models.CASCADE, default=1)
 	objects = models.Manager()
 	on_site = CurrentSiteManager()
@@ -33,6 +33,12 @@ class Shirt(models.Model):
 	def get_first_shirt_image(self):
 		return self.image_set.first()
 
+	def get_available_sizes(self):
+		return ', '.join([ inventory.get_size_display() for inventory in self.inventory_set.all().exclude(stock=0) ])
+
+	def get_available_sizes_list(self):
+		return self.inventory_set.all().exclude(stock=0)
+
 	## For auto-slugify
 	def save(self, *args, **kwargs):
 		self.code = slugify(self.name)
@@ -47,10 +53,11 @@ class Image(models.Model):
 
 	shirt = models.ForeignKey(Shirt, on_delete=models.SET_NULL, null=True, blank=True)
 	note = models.CharField(max_length=200, null=True, blank=True)
-	credits = models.TextField(max_length=200, null=True, blank=True)
+	credit = models.ManyToManyField('Credit')
 	image = models.ImageField(upload_to='{0}/shirt/'.format(settings.MEDIA_ROOT), help_text="Images will be uploaded with original size", null=True, blank=True)
 	thumbnail = models.ImageField(upload_to='{0}/shirtthumb/'.format(settings.MEDIA_ROOT), help_text="Thumbnail", null=True, blank=True, editable=False)
 	weight = models.PositiveSmallIntegerField(default=9)
+	updated_at = models.DateTimeField(auto_now=True)
 
 	def __str__(self):
 		if self.shirt:
@@ -70,4 +77,52 @@ class Image(models.Model):
 		super(Image, self).save(*args, **kwargs)
 
 	class Meta:
-		ordering = ["shirt", "weight"]
+		ordering = ["updated_at", "shirt", "weight"]
+
+
+class Inventory(models.Model):
+
+	shirt = models.ForeignKey(Shirt, on_delete=models.CASCADE)
+
+	SHIRT_XS = 10
+	SHIRT_S = 20
+	SHIRT_M = 30
+	SHIRT_L	= 40
+	SHIRT_XL = 50
+	SHIRT_XXL = 60
+
+	SHIRT_SIZES = (
+	    (SHIRT_XS,'Extra Small'),
+	    (SHIRT_S, 'Small'),
+	    (SHIRT_M,'Medium'),
+	    (SHIRT_L,'Large'),
+	    (SHIRT_XL,'Extra Large'),
+	    (SHIRT_XXL,'2X Large'),
+	)
+
+	size = models.PositiveSmallIntegerField(choices=SHIRT_SIZES, default=30)
+	stock = models.PositiveSmallIntegerField(default=0)
+
+	class Meta:
+		unique_together = ('shirt', 'size')
+		ordering = ['shirt', 'size']
+
+class Credit(models.Model):
+	name = models.CharField(max_length=200)
+	url = models.URLField(null=True, blank=True)
+	weight = models.PositiveSmallIntegerField(default=9)
+
+	def __str__(self):
+		return self.name
+
+	def get_link(self):
+		return self.link_set.all()
+
+class Link(models.Model):
+	credit = models.ForeignKey(Credit, on_delete=models.CASCADE)
+	name = models.CharField(max_length=200, null=True, blank=True)
+	url = models.URLField(null=True, blank=True)
+	weight = models.PositiveSmallIntegerField(default=9)
+
+	def __str__(self):
+		return '{0} - {1}'.format(self.credit, self.name)
