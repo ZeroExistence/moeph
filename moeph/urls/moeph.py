@@ -20,4 +20,5 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('b/', include('book.urls')),
     path('p/', include('flatpages.urls')),
+    path('s/', include('shirt.urls')),
 ]

@@ -92,7 +92,7 @@
 	{% for shirt in shirt_list %}
 	<div class="card">
 	<a href="{% url 'shirt:shirt-detail' shirt.code %}">
-	<img class="card-img-top" src="{{ shirt.get_first_shirt_image.image.url }}" alt="{{ book.get_first_shirt_image.image.name }}"></a>
+	<img class="card-img-top" src="{{ shirt.get_first_shirt_image.thumbnail.url }}" alt="{{ book.get_first_shirt_image.image.name }}"></a>
 	<div class="card-body">
 	<a href="{% url 'shirt:shirt-detail' shirt.code %}">
 	<h6 class="card-text">{{ shirt.name }}</h6>
