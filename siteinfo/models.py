@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.sites.models import Site
 from django.conf import settings
 from django.contrib.sites.managers import CurrentSiteManager
+from django.utils import html 
 
 # Create your models here.
 
@@ -14,6 +15,12 @@ class SiteInfo(models.Model):
 	
 	def __str__(self):
 		return self.name
+
+	def header_strip(self):
+		return html.strip_tags(self.header).strip()
+
+	def description_strip(self):
+		return html.strip_tags(self.description).strip()
 
 class Navigation(models.Model):
 	name = models.CharField(max_length=100, help_text="Enter a book genre", unique=True)

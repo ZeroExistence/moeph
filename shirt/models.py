@@ -69,6 +69,9 @@ class Image(models.Model):
 		super(Image, self).__init__(*args, **kwargs)
 		self.__image = self.image
 
+	def get_credits(self):
+		return self.credit.all()
+		
 	def save(self, *args, **kwargs):
 		if self.image != self.__image:
 			self.thumbnail = functions.thumbnail(self.image, 360, 640)
@@ -77,7 +80,7 @@ class Image(models.Model):
 		super(Image, self).save(*args, **kwargs)
 
 	class Meta:
-		ordering = ["updated_at", "shirt", "weight"]
+		ordering = ["weight", "shirt", "updated_at"]
 
 
 class Inventory(models.Model):

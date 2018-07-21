@@ -20,6 +20,7 @@ DEFAULT_TEMPLATE = 'flatpages/default.html'
 # CSRF protect the internal implementation.
 
 from book.models import Book, Genre, Volume
+from shirt.models import Shirt
 from django.views import generic
 
 
@@ -79,10 +80,10 @@ def index(request):
     try:
         new_arrival = Volume.objects.filter(title__site=current_site.id).order_by('updated_at').reverse()[:6]
         featured_book = Book.on_site.filter(featured=True)
-        genre_list = Genre.on_site.all()
+        shirt_list = Shirt.on_site.filter(featured=True)
     except:
         raise Http404()
     return render(request, 'index.html', 
         {'new_arrival': new_arrival, 
         'featured_book': featured_book, 
-        'genre_list': genre_list})
+        'shirt_list': shirt_list})

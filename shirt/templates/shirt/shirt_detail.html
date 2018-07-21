@@ -44,9 +44,17 @@
 <div class="card mb-2">
 {% if image.image %}
 	<img class="card-img-top" src="{{ image.thumbnail.url }}" alt="{{ image.shirt.name }}">
-	{% if image.credits %}
+	{% if image.get_credits %}
 		<div class="card-footer">
-		<small class="text-muted">{{ image.credits | safe}}</small>
+
+		<small class="text-muted">©
+		{% for credit in image.get_credits %}
+			<a href="{{ credit.url }}">{{ credit.name }}</a> 
+			{% if credit.get_link %}{% for link in credit.get_link %}
+				- <a href="{{ link.url }}">{{ link.name }}</a> 
+			{% endfor %}{% endif %}/
+		{% endfor %}
+		</small>
 		</div>
 	{% endif %}
 {% endif %}

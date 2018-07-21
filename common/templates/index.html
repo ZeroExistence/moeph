@@ -5,17 +5,13 @@
 {% endblock %}
 
 {% block meta %}
-<!--
-Facebook Metadata
-<meta property="og:url"                content="URL" />
-<meta property="og:type"               content="article" />
-<meta property="og:title"              content="TITLE" />
-<meta property="og:description"        content="DESCRIPTION" />
-<meta property="og:image"              content="IMAGE" />
+<meta property="og:url"                content="{{ request.build_absolute_uri }}" />
+<meta property="og:type"               content="website" />
+<meta property="og:title"              content="{{ site_info.header_strip }}" />
+<meta property="og:description"        content="{{ site_info.description_strip | truncatechars:190 }}" />
+<meta property="og:image"              content="{{ site_info.banner.url }}" />
 
-Google Metadata
-<meta name="Description" content="Author: A.N. Author, Illustrator: P. Picture, Category: Books, Price:  £9.24, Length: 784 pages">
--->
+<meta name="{{ site_info.header_strip }}" content="{{ site_info.description_strip | truncatechars:190 }}">
 {% endblock %}
 
 {% block banner %}
@@ -87,29 +83,24 @@ Google Metadata
 	</div>
 {% endif %}
 
-{% if genre_list %}
+{% if shirt_list %}
 <div class="jumbotron text-center">
-<h1 class="jumbotron-heading">Browse Item by Genre</h1>
+<h1 class="jumbotron-heading">Featured Shirts</h1>
 </div>
 
-<div class="container album p-4">
-<div class="row">
-	{% for genre in genre_list %}
-
-	<div class="col-md-4 col-12">
-	<div class="card mb-2 box-shadow">
-	<div class="card text-center">
+<div class="card-columns p-4 bg-light">
+	{% for shirt in shirt_list %}
+	<div class="card">
+	<a href="{% url 'shirt:shirt-detail' shirt.code %}">
+	<img class="card-img-top" src="{{ shirt.get_first_shirt_image.image.url }}" alt="{{ book.get_first_shirt_image.image.name }}"></a>
 	<div class="card-body">
-	<h5 class="card-title">{{ genre.name | capfirst }}</h5>
-	<p class="card-text"></p>
-	<a href="{% url 'book:book' genre.code %}" class="btn btn-primary">Browse {{ genre.name | capfirst }}</a>
-	</div>
-	</div>
+	<a href="{% url 'shirt:shirt-detail' shirt.code %}">
+	<h6 class="card-text">{{ shirt.name }}</h6>
+	</a>
 	</div>
 	</div>
 	{% endfor %}
-
-</div>			
+		
 </div>
 {% endif %}
 

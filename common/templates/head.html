@@ -57,16 +57,32 @@
 </nav>
 
 {% block content %} {% endblock %}
-
 <footer class="text-muted bg-light">
 <div class="container">
-<div class="row">	
+<hr>
+<div class="row">
 <div class="col-md-6 col-sm-12">
 <ul class="list-unstyled text-small">
-<li>&copy; moe.ph. All rights reserved.</li>
-<li>Design: <a href="http://html5up.net">HTML5 UP</a>
-<li>Design: <a href="https://getbootstrap.com">Bootstrap</a>
-</li><li>Framework: <a href="https://www.djangoproject.com/">Django</a></li>
+{% for navigation in navigation_list %}
+
+{% if navigation.get_submenu %}
+<li class="list-unstyled text-small">
+<a href="{{ navigation.url }}">{{ navigation.name }}</a>
+</li>
+{% for subnav in navigation.get_submenu %}
+<li class="list-unstyled text-small">
+<a href="{{ subnav.url }}">--{{ subnav.name }}</a>
+</li>
+{% endfor %}
+
+{% else %}
+<li class="list-unstyled text-small">
+<a href="{{ navigation.url }}">{{ navigation.name }}</a>
+</li>
+
+{% endif %}
+
+{% endfor %}
 </ul>
 </div>
 <div class="col-md-6 col-sm-12">
@@ -77,6 +93,11 @@
 <li><a href="https://facebook.com/be.moe.ph"><i class="fab fa-facebook"></i> - Facebook</a></li>
 <li><a href="https://m.me/be.moe.ph"><i class="fab fa-facebook-messenger"></i> - Messenger</a></li>
 <li><a href="https://github.com/ZeroExistence"><i class="fab fa-github"></i> - Github</a></li>
+<hr>
+<li>&copy; moe.ph. All rights reserved.</li>
+<li>Design: <a href="https://getbootstrap.com">Bootstrap</a>
+<li>Design: <a href="https://fontawesome.com">Font Awesome</a>
+</li><li>Framework: <a href="https://www.djangoproject.com/">Django</a></li>
 </ul>
 </div>
 </div>
