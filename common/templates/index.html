@@ -1,0 +1,108 @@
+{% extends "head.html" %}
+
+{% block title %}
+<title>moe.ph</title>
+{% endblock %}
+
+{% block meta %}
+<meta property="og:url"                content="{{ request.build_absolute_uri }}" />
+<meta property="og:type"               content="website" />
+<meta property="og:title"              content="{{ site_info.header_strip }}" />
+<meta property="og:description"        content="{{ site_info.description_strip | truncatechars:190 }}" />
+<meta property="og:image"              content="{{ site_info.banner.url }}" />
+
+<meta name="{{ site_info.header_strip }}" content="{{ site_info.description_strip | truncatechars:190 }}">
+{% endblock %}
+
+{% block banner %}
+<style>
+.bg-cover {
+  background-image: url('{{ site_info.banner.url }}');
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- Banner -->
+
+{{ site_info.header | safe }}
+{{ site_info.description | safe }}
+
+
+
+{% if new_arrival %}
+	<div class="jumbotron text-center">
+	<h1 class="jumbotron-heading">New Arrivals</h1>
+	</div>
+	<div class="album p-4 bg-light">
+	<div class="row">
+	{% for volume in new_arrival %}
+		<div class="col-lg-2 col-md-4 col-6">
+		<div class="card mb-2">
+		{% if volume.image %}
+		<a href="{% url 'book:book-detail' volume.title.genre volume.title.code %}">
+		<img class="card-img-top" src="{{ volume.image.url }}" alt="{{ book.get_first_volume_image.name }}"></a>
+		{% endif %}
+		<div class="card-body">
+		<a href="{% url 'book:book-detail' volume.title.genre volume.title.code %}">
+		<h6 class="card-text">{{ volume.get_title }}</h6>
+		</a>
+		</div>
+		</div>
+		</div>
+	{% endfor %}
+	</div>
+	</div>
+
+{% endif %}
+
+{% if featured_book %}
+	<div class="jumbotron text-center">
+	<h1 class="jumbotron-heading">Featured Titles</h1>
+	</div>
+	<div class="album p-4 bg-light">
+	<div class="row">
+	{% for book in featured_book %}
+		<div class="col-lg-2 col-md-4 col-6">
+		<div class="card mb-2">
+		{% if book.get_first_volume_image %}
+		<a href="{% url 'book:book-detail' book.genre.name book.code %}">
+		<img class="card-img-top" src="{{ book.get_first_volume_image.url }}" alt="{{ book.get_first_volume_image.name }}"></a>
+		{% endif %}
+		<div class="card-body">
+		<a href="{% url 'book:book-detail' book.genre.name book.code %}">
+		<h6 class="card-text">{{ book.title }}
+		<small class="text-muted"> by {{ book.author.name }}</small>
+		</h6></a>
+		</div>
+		</div>
+		</div>
+	{% endfor %}
+	</div>
+	</div>
+{% endif %}
+
+{% if shirt_list %}
+<div class="jumbotron text-center">
+<h1 class="jumbotron-heading">Featured Shirts</h1>
+</div>
+
+<div class="card-columns p-4 bg-light">
+	{% for shirt in shirt_list %}
+	<div class="card">
+	<a href="{% url 'shirt:shirt-detail' shirt.code %}">
+	<img class="card-img-top" src="{{ shirt.get_first_shirt_image.image.url }}" alt="{{ book.get_first_shirt_image.image.name }}"></a>
+	<div class="card-body">
+	<a href="{% url 'shirt:shirt-detail' shirt.code %}">
+	<h6 class="card-text">{{ shirt.name }}</h6>
+	</a>
+	</div>
+	</div>
+	{% endfor %}
+		
+</div>
+{% endif %}
+
+
+{% endblock %}

@@ -30,6 +30,8 @@ INSTALLED_APPS = [
     #'page.apps.PageConfig',
     'book.apps.BookConfig',
     'flatpages.apps.FlatPagesConfig',
+    'shirt.apps.ShirtConfig',
+    'siteinfo.apps.SiteinfoConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -51,12 +53,13 @@ MIDDLEWARE = [
     'flatpages.middleware.FlatpageFallbackMiddleware',
     'django.contrib.sites.middleware.CurrentSiteMiddleware',
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
+    'siteinfo.middleware.SimpleMiddleware',
 ]
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['common/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -65,6 +68,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
+                'siteinfo.context.siteinfo',
             ],
         },
     },

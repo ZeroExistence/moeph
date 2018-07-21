@@ -1,0 +1,32 @@
+{% extends "head.html" %}
+
+{% block content %}
+
+<!--Main-->
+
+<div id="main">
+
+{% if all_details_ %}
+<div class="jumbotron text-center">
+<h1 class="jumbotron-heading">Shirts</h1>
+</div>
+{% endif %}
+
+{% if image_list %}
+<div class="card-columns p-4 bg-light">
+
+{% for image in image_list %}
+<a href="{% url 'shirt:shirt-detail' image.shirt.code %}">
+<div class="card mb-2">
+<img class="card-img-top" src="{{ image.image.url }}" alt="{{ image.name }}">
+</div>
+</a>
+{% endfor %}
+
+</div>
+
+{% endif %}
+
+</div>
+
+{% endblock %}

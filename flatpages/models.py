@@ -4,7 +4,7 @@ from django.urls import get_script_prefix
 from django.utils.encoding import iri_to_uri
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
-from local import functions
+from common import functions
 
 
 class FlatPage(models.Model):
