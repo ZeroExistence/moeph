@@ -1,0 +1,74 @@
+{% extends "head.html" %}
+
+{% block title %}
+<title>moe.ph - {{ shirt.name }}
+</title>
+{% endblock %}
+
+{% block meta %}
+<meta property="og:url"                content="{{ request.build_absolute_uri }}" />
+<meta property="og:type"               content="website" />
+<meta property="og:title"              content="moe.ph - {{ shirt.name }}" />
+<meta property="og:description"        content="{{ shirt.description | truncatechars:190 }}" />
+<meta property="og:image"              content="{{ shirt.get_first_shirt_image.image.url }}" />
+
+<meta name="moe.ph - {{ shirt.name }}" content="{{ shirt.description | truncatechars:190 }}">
+
+{% endblock %}
+
+{% block content %}
+
+<!--Main-->
+
+<div id="main">
+
+{% if shirt %}
+	<div class="card m-4">
+	<div class="card-body">
+	<h2 class="card-title">{{ shirt.name }}</h2>
+	<p class="card-text">{{ shirt.description }}</p>
+	<ul class="list-group list-group-flush">
+	<li class="list-group-item">Price: P{{ shirt.price }}
+	</li>
+	<li class="list-group-item">Available Sizes: {{ shirt.get_available_sizes }}
+	</li>
+	</ul>
+	</div>
+	</div>
+{% endif %}
+
+<div class="card-columns-2 p-4 bg-light">
+
+{% for image in shirt.get_images %}
+
+<div class="card mb-2">
+{% if image.image %}
+	<img class="card-img-top" src="{{ image.thumbnail.url }}" alt="{{ image.shirt.name }}">
+	{% if image.get_credits %}
+		<div class="card-footer">
+
+		<small class="text-muted">©
+		{% for credit in image.get_credits %}
+			<a href="{{ credit.url }}">{{ credit.name }}</a> 
+			{% if credit.get_link %}{% for link in credit.get_link %}
+				- <a href="{{ link.url }}">{{ link.name }}</a> 
+			{% endfor %}{% endif %}/
+		{% endfor %}
+		</small>
+		</div>
+	{% endif %}
+{% endif %}
+</div>
+{% endfor %}
+</div>
+
+<div class="jumbotron text-center">
+<h3>Get in touch with us via <a href="https://m.me/be.moe.ph">Messenger</a>!</h3>
+<p></p>
+</div>
+
+{% endblock %}
+
+
+
+

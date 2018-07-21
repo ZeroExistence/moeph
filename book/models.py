@@ -4,7 +4,7 @@ from django.contrib.sites.managers import CurrentSiteManager
 from django.utils.text import slugify
 from django.conf import settings
 from django.urls import reverse
-from local import functions
+from common import functions
 
 # Functions for image path upload
 def volume_directory_location(instance, filename):
@@ -49,7 +49,7 @@ class Book(models.Model):
 		return self.title
 
 	def display_tag(self):
-		return ', '.join([ tag.name for tag in self.tag.all()[:10] ])
+		return ', '.join([ tag.name for tag in self.tag.all() ])
 
 	def is_featured(self):
 		return self.featured
