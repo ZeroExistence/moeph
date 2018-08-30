@@ -43,7 +43,7 @@
 
 <div class="card mb-2">
 {% if image.image %}
-	<img class="card-img-top" src="{{ image.thumbnail.url }}" alt="{{ image.shirt.name }}">
+	<img class="card-img-top" src="{{ image.image.url }}" alt="{{ image.shirt.name }}">
 	{% if image.get_credits %}
 		<div class="card-footer">
 

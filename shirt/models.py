@@ -74,7 +74,7 @@ class Image(models.Model):
 		
 	def save(self, *args, **kwargs):
 		if self.image != self.__image:
-			self.thumbnail = functions.thumbnail(self.image, 360, 640)
+			self.thumbnail = functions.thumbnail(self.image, 540, 960)
 			self.image = functions.thumbnail(self.image, 720, 1280)
 
 		super(Image, self).save(*args, **kwargs)

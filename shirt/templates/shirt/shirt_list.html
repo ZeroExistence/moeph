@@ -18,7 +18,7 @@
 {% for image in image_list %}
 <a href="{% url 'shirt:shirt-detail' image.shirt.code %}">
 <div class="card mb-2">
-<img class="card-img-top" src="{{ image.image.url }}" alt="{{ image.name }}">
+<img class="card-img-top" src="{{ image.thumbnail.url }}" alt="{{ image.name }}">
 </div>
 </a>
 {% endfor %}

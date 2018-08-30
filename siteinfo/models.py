@@ -16,11 +16,19 @@ class SiteInfo(models.Model):
 	def __str__(self):
 		return self.name
 
+	def __init__(self, *args, **kwargs):
+		super(SiteInfo, self).__init__(*args, **kwargs)
+		self.__banner = self.banner
+
 	def header_strip(self):
 		return html.strip_tags(self.header).strip()
 
 	def description_strip(self):
 		return html.strip_tags(self.description).strip()
+
+	def save(self, *args, **kwargs):
+		if self.banner != self.__banner:
+			self.banner = functions.thumbnail(self.image, 720, 1280)		
 
 class Navigation(models.Model):
 	name = models.CharField(max_length=100, help_text="Enter a book genre", unique=True)
@@ -38,4 +46,4 @@ class Navigation(models.Model):
 		return self.name
 
 	def get_submenu(self):
-		return self.navigation_set.all()
+		return self.navigation_set.filter(site=settings.SITE_ID)
