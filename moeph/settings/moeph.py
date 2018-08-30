@@ -30,8 +30,8 @@ SITE_ID = 1
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'moeph',
-        'USER': 'moeph',
+        'NAME': 'Chang3m3',
+        'USER': 'Chang3m3',
         'PASSWORD': 'Chang3m3',
         'HOST': '127.0.0.1',
         'PORT': '5432',

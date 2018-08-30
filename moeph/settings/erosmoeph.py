@@ -1,35 +1,28 @@
 from .base import *
 
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['eros.moe.ph']
 
-SECRET_KEY = 'seccererer'
+SECRET_KEY = 'ax7j8QWuQFzjppfp0WAvb4JY'
 
-ROOT_URLCONF = 'moeph.urls.moephadmin'
+ROOT_URLCONF = 'moeph.urls.erosmoeph'
 
-WSGI_APPLICATION = 'moeph.wsgi.moephadmin.application'
+WSGI_APPLICATION = 'moeph.wsgi.erosmoeph.application'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'https://cdn.moe.ph/static/'
 STATIC_ROOT = 'static/'
 
 ## Config Settings
 
-MEDIA_URL = '/'
+MEDIA_URL = 'https://cdn.moe.ph/'
 MEDIA_ROOT = 'media/'
 
-INSTALLED_APPS += [
-	'django.contrib.staticfiles']
-
-STATICFILES_DIRS = [
-	os.path.join(BASE_DIR, "../common/static"),
-	]
-
 ## Site ID
-SITE_ID = 1
+SITE_ID = 2
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
