@@ -4,7 +4,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['eros.moe.ph']
 
-SECRET_KEY = 'ax7j8QWuQFzjppfp0WAvb4JY'
+SECRET_KEY = 'Chang3m3'
 
 ROOT_URLCONF = 'moeph.urls.erosmoeph'
 

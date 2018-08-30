@@ -4,7 +4,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['moe.ph']
 
-SECRET_KEY = 'seccererer'
+SECRET_KEY = 'Chang3m3'
 
 ROOT_URLCONF = 'moeph.urls.moeph'
 
