@@ -1,0 +1,39 @@
+from .base import *
+
+DEBUG = False
+
+ALLOWED_HOSTS = ['blog.moe.ph']
+
+SECRET_KEY = 'Chang3m3'
+
+ROOT_URLCONF = 'moeph.urls.blogmoeph'
+
+WSGI_APPLICATION = 'moeph.wsgi.blogmoeph.application'
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/2.0/howto/static-files/
+
+STATIC_URL = 'https://cdn.moe.ph/static/'
+STATIC_ROOT = 'static/'
+
+## Config Settings
+
+MEDIA_URL = 'https://cdn.moe.ph/'
+MEDIA_ROOT = 'media/'
+
+## Site ID
+SITE_ID = 3
+
+# Database
+# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'moephdev',
+        'USER': 'moephdev',
+        'PASSWORD': 'Chang3m3',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
