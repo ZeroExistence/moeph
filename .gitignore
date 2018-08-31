@@ -1,8 +1,8 @@
-## Custom ingnore
+## Custom ignore
 */migrations/00*.py
 media/
 ^static/
-^moeph/settings/*.py
+moeph/settings/*.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
