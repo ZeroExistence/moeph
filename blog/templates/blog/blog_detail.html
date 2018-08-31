@@ -1,0 +1,33 @@
+{% extends "head.html" %}
+
+{% block title %}
+<title>moe.ph - {{ book.title }}
+</title>
+{% endblock %}
+
+{% block meta %}
+<meta property="og:url"                content="{{ request.build_absolute_uri }}" />
+<meta property="og:type"               content="website" />
+<meta property="og:title"              content="moe.ph - {{ book.title }}" />
+<meta property="og:description"        content="{{ book.summary | truncatechars:190 }}" />
+<meta property="og:image"              content="{{ book.get_first_volume_image.url }}" />
+
+<meta name="moe.ph - {{ book.title }}" content="{{ book.summary | truncatechars:190 }}">
+
+{% endblock %}
+
+{% block content %}
+
+<!--Main-->
+<div id="main">
+<div class="container">
+
+<h1> {{ post.title }} </h1>
+<small> {{ post.created_at }} </small>
+<hr>
+
+
+</div>
+</div>
+
+{% endblock %}

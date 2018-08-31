@@ -1,0 +1,63 @@
+{% extends "head.html" %}
+
+{% block content %}
+
+<!--Main-->
+
+<div id="main">
+
+{% if genre_details %}
+<div class="jumbotron text-center">
+<h1 class="jumbotron-heading">{{ genre_details.name | capfirst }}</h1>
+	<p>{{ genre_details.description }}</p>
+</div>
+{% endif %}
+
+
+{% if tag_details %}
+<div class="jumbotron text-center">
+<h1 class="jumbotron-heading">Filter items by Tag: {{ tag_details.name | capfirst }}</h1>
+</div>
+{% endif %}
+
+{% if all_details %}
+<div class="jumbotron text-center">
+<h1 class="jumbotron-heading">Browse All Books</h1>
+</div>
+{% endif %}
+
+{% if author_details %}
+<div class="jumbotron text-center">
+<h1 class="jumbotron-heading">Filter items by Author: {{ author_details.name }}</h1>
+</div>
+{% endif %}
+
+{% if book_list %}
+<div class="album p-4 bg-light">
+<div class="row">
+
+{% for book in book_list %}
+<div class="col-lg-2 col-md-4 col-6">
+<div class="card mb-2">
+{% if book.get_first_volume_image %}
+<a href="{% url 'book:book-detail' book.genre.name book.code %}">
+<img class="card-img-top" src="{{ book.get_first_volume_image.url }}" alt="{{ book.get_first_volume_image.name }}">
+</a>
+{% endif %}
+<div class="card-body">
+<a href="{% url 'book:book-detail' book.genre.name book.code %}">
+<h6 class="card-text">{{ book.title }}
+<small class="text-muted"> by {{ book.author }}</small>
+</h6></a>
+</div>
+
+</div>
+</div>
+{% endfor %}
+
+{% endif %}
+</div>
+</div>
+</div>
+
+{% endblock %}
