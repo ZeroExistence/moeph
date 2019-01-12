@@ -61,6 +61,7 @@ def thumbnail(image, width, height):
     if 'exif' in img.info:
         exif = img.info['exif']
     img.thumbnail((width, height))
+    img = img.convert("RGB")
     output = BytesIO()
 
     if exif:

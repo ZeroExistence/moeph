@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib.sites.models import Site
 from django.conf import settings
 from django.contrib.sites.managers import CurrentSiteManager
-from django.utils import html 
+from django.utils import html
+from common import functions
 
 # Create your models here.
 
@@ -28,7 +29,8 @@ class SiteInfo(models.Model):
 
 	def save(self, *args, **kwargs):
 		if self.banner != self.__banner:
-			self.banner = functions.thumbnail(self.image, 720, 1280)		
+			self.banner = functions.thumbnail(self.banner, 1200, 1600)
+		super(SiteInfo, self).save(*args, **kwargs)
 
 class Navigation(models.Model):
 	name = models.CharField(max_length=100, help_text="Enter a book genre", unique=True)

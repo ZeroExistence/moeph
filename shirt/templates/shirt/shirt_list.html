@@ -1,5 +1,15 @@
 {% extends "head.html" %}
 
+{% block meta %}
+<meta property="og:url"                content="{{ request.build_absolute_uri }}" />
+<meta property="og:type"               content="website" />
+<meta property="og:title"              content="moe.ph - Shirts" />
+<meta property="og:description"        content="Shirts Listing" />
+<meta property="og:image"              content="{{ image_list.0.thumbnail.url }}" />
+
+<meta name="moe.ph - Shirts" content="Shirts Listing">
+{% endblock %}
+
 {% block content %}
 
 <!--Main-->
